@@ -9,7 +9,7 @@ package espacios;
  * @author Yumor
  */
 public enum TipoEspacio {
-   PEQUEÑO,
+   PEQUENO,
    MEDIANO,
    GRANDE
 }
