@@ -11,34 +11,45 @@ import java.util.ArrayList;
  * @author lenno
  */
 public class Controladorempleado {
-    private ArrayList<Empleado> empleados;
+private ArrayList<Empleado> empleados;
 
     public Controladorempleado() {
         empleados = new ArrayList<>();
     }
 
-    public void agregar(Empleado empleado) {
+    public void guardar(Empleado empleado) {
         empleados.add(empleado);
     }
 
-    public Empleado buscar(int idEmpleado) {
+    public Empleado buscar(String nombre) {
         for (Empleado empleado : empleados) {
-            if (empleado.getdEmpleado() == idEmpleado) {
+            if (empleado.getNombre().equalsIgnoreCase(nombre)) {
                 return empleado;
             }
         }
         return null;
     }
 
-    public void eliminar(int idEmpleado) {
-        Empleado empleado = buscar(idEmpleado);
+    public boolean editar(String nombre, Puesto puesto, double salario) {
+        Empleado empleado = buscar(nombre);
+
+        if (empleado != null) {
+            empleado.setPuesto(puesto);
+            empleado.setSalario(salario);
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean eliminar(String nombre) {
+        Empleado empleado = buscar(nombre);
 
         if (empleado != null) {
             empleados.remove(empleado);
+            return true;
         }
-    }
 
-    public ArrayList<Empleado> getEmpleados() {
-        return empleados;
+        return false;
     }
 }
