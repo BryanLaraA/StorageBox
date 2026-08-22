@@ -4,10 +4,15 @@
  */
 package administracionempleados;
 
+import personas.Persona;
+
 /**
  *
  * @author lenno
  */
-public class Empleado {
-    
+public class Empleado extends Persona {
+
+    private Puesto puesto;
+    private double salario;
+
 }
