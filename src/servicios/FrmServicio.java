@@ -168,7 +168,7 @@ public class FrmServicio extends javax.swing.JFrame {
 
         if (opcion == JOptionPane.YES_OPTION) {
 
-            controladorservicio.eliminar(nombre);
+            controladorservicio.eliminar(codigo);
 
             JOptionPane.showMessageDialog(this, "Servicio eliminado");
 
