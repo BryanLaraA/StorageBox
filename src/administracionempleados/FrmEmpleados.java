@@ -4,6 +4,8 @@
  */
 package administracionempleados;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author lenno
@@ -92,25 +94,41 @@ public class FrmEmpleados extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        String nombre = jNombre.getText();
+        String nombre = jNombre.getText().trim();
+
+        if (nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese un nombre");
+            return;
+        }
 
         Empleado empleado = new Empleado();
         empleado.setNombre(nombre);
 
         controladorem.guardar(empleado);
 
-        javax.swing.JOptionPane.showMessageDialog(this, "Empleado guardado correctamente");
+        JOptionPane.showMessageDialog(this, "Empleado guardado correctamente");
+
+        jNombre.setText("");
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        String nombre = jNombre.getText();
+        String nombre = jNombre.getText().trim();
+
+        if (nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(this,"Ingrese el nombre a buscar");
+            return;
+        }
 
         Empleado empleado = controladorem.buscar(nombre);
 
         if (empleado != null) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Empleado encontrado");
+
+            JOptionPane.showMessageDialog(this,"Empleado encontrado:\nNombre: " + empleado.getNombre()
+            );
+
         } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "Empleado no encontrado");
+
+            JOptionPane.showMessageDialog(this,"Empleado no encontrado");
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
