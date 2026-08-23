@@ -4,19 +4,25 @@
  */
 package servicios;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author lenno
  */
 public class FrmServicio extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmServicio.class.getName());
+
+    private Controladorservicio controladorservicio;
 
     /**
      * Creates new form FrmServicio
      */
     public FrmServicio() {
         initComponents();
+        controladorservicio = new Controladorservicio();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -28,21 +34,98 @@ public class FrmServicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGuardar = new javax.swing.JButton();
+        jNombre = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(this::btnGuardarActionPerformed);
+
+        jNombre.setText("jLabel1");
+
+        jButton1.setText("jButton1");
+
+        jLabel1.setBackground(new java.awt.Color(50, 100, 200));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setText("Servicio");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnGuardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1))
+                    .addComponent(jNombre))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardar)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jNombre)
+                .addContainerGap(134, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+    String nombre = jNombre.getText().trim();
+
+    if (nombre.isEmpty()) {
+        JOptionPane.showMessageDialog(this,"Ingrese el nombre del servicio");
+        return;
+    }
+
+    Servicio servicio = new Servicio();
+    servicio.setNombre(nombre);
+
+    controladorservicio.guardar(servicio);
+
+    JOptionPane.showMessageDialog(this,"Servicio guardado correctamente");
+
+    limpiarCampos();
+    }
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
+
+        String nombre = jNombre.getText().trim();
+
+        if (nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(this,"Ingrese el nombre del servicio");
+            return;
+        }
+
+        Servicio servicio = controladorservicio.buscar(nombre);
+
+        if (servicio != null) {
+
+            JOptionPane.showMessageDialog(this,"Servicio encontrado:\n"+ "Nombre: " + servicio.getNombre());
+        } else {
+
+            JOptionPane.showMessageDialog(this,"Servicio no encontrado");
+        }
+    }
+
+    private void limpiarCampos() {
+        jNombre.setText("");
+
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -70,5 +153,9 @@ public class FrmServicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jNombre;
     // End of variables declaration//GEN-END:variables
 }
