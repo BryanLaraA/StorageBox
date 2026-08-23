@@ -57,22 +57,18 @@ public class Controladorservicio {
         return false;
     }
 
-    public boolean eliminar(String nombre) {
+    public boolean eliminar(int codigo) {
 
-        if (nombre == null || nombre.trim().isEmpty()) {
-            return false;
+    for (int i = 0; i < servicios.size(); i++) {
+
+        if (servicios.get(i).getCodigo() == codigo) {
+
+            servicios.remove(i);
+            return true;
         }
+    }
 
-        for (int i = 0; i < servicios.size(); i++) {
-
-            if (servicios.get(i).getNombre().equalsIgnoreCase(nombre.trim())) {
-
-                servicios.remove(i);
-                return true;
-            }
-        }
-
-        return false;
+    return false;
     }
 
     public ArrayList<Servicio> getServicios() {
