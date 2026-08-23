@@ -9,9 +9,10 @@ package personas;
  * @author bryan
  */
 public abstract class Persona {
-    private int ID;
-    private String nombre;
-    private String apellido;
+    protected int ID;
+    protected String nombre;
+    protected String apellido;
+    protected String telefono;
 
     public Persona() {
     }
@@ -34,6 +35,10 @@ public abstract class Persona {
         return nombre;
     }
 
+    public String getTelefono() {
+        return telefono;
+    }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -45,4 +50,10 @@ public abstract class Persona {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }  
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+    
+    
 }
