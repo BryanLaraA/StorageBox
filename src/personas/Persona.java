@@ -10,17 +10,15 @@ package personas;
  */
 public abstract class Persona {
     protected int ID;
-    protected String nombre;
-    protected String apellido;
+    protected String nombreCompleto;
     protected String telefono;
 
     public Persona() {
     }
 
-    public Persona(int ID, String nombre, String apellido) {
+    public Persona(int ID, String nombreCompleto, String apellido) {
         this.ID = ID;
-        this.nombre = nombre;
-        this.apellido = apellido;
+        this.nombreCompleto = nombreCompleto;
     }
 
     public int getIdPersona() {
@@ -32,7 +30,7 @@ public abstract class Persona {
     }
 
     public String getNombre() {
-        return nombre;
+        return nombreCompleto;
     }
 
     public String getTelefono() {
@@ -40,19 +38,16 @@ public abstract class Persona {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }  
+        this.nombreCompleto = nombre;
+    } 
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    @Override
+    public String toString() {
+        return "Persona{" + "ID=" + ID + ", nombreCompleto=" + nombreCompleto + ", telefono=" + telefono + '}';
     }
     
     
