@@ -20,11 +20,13 @@ public class Cliente extends Persona{
         super();
     }
 
-    public Cliente(LocalDate fechaNacimiento, String correoElectronico, int ID, String nombreCompleto, String apellido) {
-        super(ID, nombreCompleto, apellido);
+    public Cliente(LocalDate fechaNacimiento, String correoElectronico, int ID, String nombreCompleto) {
+        super(ID, nombreCompleto);
         this.fechaNacimiento = fechaNacimiento;
         this.correoElectronico = correoElectronico;
     }
+
+    
  
     public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
