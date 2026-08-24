@@ -16,7 +16,7 @@ public abstract class Persona {
     public Persona() {
     }
 
-    public Persona(int ID, String nombreCompleto, String apellido) {
+    public Persona(int ID, String nombreCompleto) {
         this.ID = ID;
         this.nombreCompleto = nombreCompleto;
     }
