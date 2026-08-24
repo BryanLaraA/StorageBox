@@ -26,6 +26,7 @@ public class FrmClientes extends javax.swing.JFrame {
      */
     public FrmClientes() {
         initComponents();
+    controladorcliente = new ControladorCliente();
         
     ImageIcon icono = new ImageIcon(getClass().getResource("/clientes/icons/Usuario.png"));
     Image imagen = icono.getImage();
@@ -276,7 +277,8 @@ public class FrmClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeshacerActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-      
+       FrmBuscarCliente frm = new FrmBuscarCliente(controladorcliente);
+    frm.setVisible(true);
     }//GEN-LAST:event_btnBuscarActionPerformed
      
     private void limpiarCampos() {
