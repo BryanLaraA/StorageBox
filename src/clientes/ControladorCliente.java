@@ -5,6 +5,7 @@
 package clientes;
 
 import contratos.Contrato;
+import contratos.EstadoContrato;
 import excepciones.ClienteConContratoExeption;
 import excepciones.ClienteDuplicadoExeption;
 import java.util.ArrayList;
