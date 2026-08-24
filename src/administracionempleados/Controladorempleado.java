@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author lenno
  */
 public class Controladorempleado {
-private ArrayList<Empleado> empleados;
+    private ArrayList<Empleado> empleados;
 
     public Controladorempleado() {
         empleados = new ArrayList<>();
@@ -52,4 +52,9 @@ private ArrayList<Empleado> empleados;
 
         return false;
     }
+
+    public ArrayList<Empleado> getEmpleados() {
+        return empleados;
+    }
+
 }

@@ -11,7 +11,7 @@ package personas;
 public abstract class Persona {
     protected int ID;
     protected String nombreCompleto;
-    protected String telefono;
+    protected String Puesto;
 
     public Persona() {
     }
@@ -34,7 +34,7 @@ public abstract class Persona {
     }
 
     public String getTelefono() {
-        return telefono;
+        return Puesto;
     }
 
     public void setNombre(String nombre) {
@@ -42,12 +42,12 @@ public abstract class Persona {
     } 
 
     public void setTelefono(String telefono) {
-        this.telefono = telefono;
+        this.Puesto = telefono;
     }
 
     @Override
     public String toString() {
-        return "Persona{" + "ID=" + ID + ", nombreCompleto=" + nombreCompleto + ", telefono=" + telefono + '}';
+        return "Persona{" + "ID=" + ID + ", nombreCompleto=" + nombreCompleto + ", telefono=" + Puesto + '}';
     }
     
     
