@@ -17,13 +17,13 @@ public class FrmBuscarServicio extends javax.swing.JFrame {
 
     private Controladorservicio controladorservicio;
 
-    /**
-     * Creates new form FrmBuscarServicio
-     */
-    public FrmBuscarServicio() {
+    public FrmBuscarServicio(Controladorservicio controladorservicio) {
         initComponents();
-        controladorservicio = new Controladorservicio();
+
+        this.controladorservicio = controladorservicio;
+
         setLocationRelativeTo(null);
+
         cargarServicios();
     }
 
@@ -39,19 +39,14 @@ public class FrmBuscarServicio extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablaServicio = new javax.swing.JTable();
-        btnGuardar = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        txtNombre = new javax.swing.JTextField();
-        txtPrecio = new javax.swing.JTextField();
-        txtDescripcion = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("                   Buscador de Servicio");
+        jLabel1.setText("                   Buscador de Servicios");
+        jLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jTablaServicio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -65,134 +60,49 @@ public class FrmBuscarServicio extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTablaServicio);
 
-        btnGuardar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(this::btnGuardarActionPerformed);
+        btnVolver.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnVolver.setText("Volver");
+        btnVolver.addActionListener(this::btnVolverActionPerformed);
 
-        btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(this::btnEliminarActionPerformed);
-
-        txtNombre.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtNombre.addActionListener(this::txtNombreActionPerformed);
-
-        txtPrecio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
-        txtDescripcion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setText("Descripcion:");
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setText("Precio:");
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel5.setText("Nombre:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(106, Short.MAX_VALUE)
+                .addContainerGap(123, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(99, 99, 99))
+                .addGap(114, 114, 114))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPrecio))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNombre))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnGuardar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnEliminar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnVolver)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEliminar)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(32, 32, 32)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(12, 12, 12))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        String nombre = txtNombre.getText().trim();
-        String descripcion = txtDescripcion.getText().trim();
-
-        if (nombre.isEmpty() || descripcion.isEmpty() || txtPrecio.getText().trim().isEmpty()) {
-
-            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios");
-            return;
-        }
-
-        try {
-
-            double precio = Double.parseDouble(txtPrecio.getText().trim());
-
-            Servicio servicio = new Servicio();
-
-            int codigo = controladorservicio.getServicios().size() + 1;
-
-            servicio.setCodigo(codigo);
-            servicio.setNombre(nombre);
-            servicio.setDescripcion(descripcion);
-            servicio.setPrecio(precio);
-
-            controladorservicio.guardar(servicio);
-
-            JOptionPane.showMessageDialog(this, "Servicio guardado correctamente");
-
-            cargarServicios();
-            limpiarCampos();
-
-        } catch (NumberFormatException e) {
-
-            JOptionPane.showMessageDialog(this, "El precio debe ser numérico");
-
-        }
-    }
-
-    private void limpiarCampos() {
-        txtNombre.setText("");
-        txtDescripcion.setText("");
-        txtPrecio.setText("");
-    }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
     int fila = jTablaServicio.getSelectedRow();
@@ -202,9 +112,7 @@ public class FrmBuscarServicio extends javax.swing.JFrame {
         return;
     }
 
-    int opcion = JOptionPane.showConfirmDialog(
-            this,
-            "¿Desea eliminar el servicio?"
+    int opcion = JOptionPane.showConfirmDialog(this,"¿Desea eliminar el servicio?"
     );
 
     if (opcion == JOptionPane.YES_OPTION) {
@@ -218,13 +126,12 @@ public class FrmBuscarServicio extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Servicio eliminado");
 
         cargarServicios();
-        limpiarCampos();
     }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
 
     private void cargarServicios() {
 
@@ -265,20 +172,14 @@ public class FrmBuscarServicio extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FrmBuscarServicio().setVisible(true));
+        java.awt.EventQueue.invokeLater(() ->new FrmBuscarServicio(new Controladorservicio()).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTablaServicio;
-    private javax.swing.JTextField txtDescripcion;
-    private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
 }
