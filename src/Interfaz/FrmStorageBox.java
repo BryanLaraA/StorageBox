@@ -5,6 +5,7 @@
 package Interfaz;
 
 import clientes.Cliente;
+import clientes.ControladorCliente;
 
 /**
  *
@@ -13,12 +14,15 @@ import clientes.Cliente;
 public class FrmStorageBox extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmStorageBox.class.getName());
+    private ControladorCliente controladorCliente = new ControladorCliente();
 
     /**
      * Creates new form FrmStorageBox
      */
     public FrmStorageBox() {
         initComponents();
+        
+
     }
 
     /**
@@ -32,11 +36,12 @@ public class FrmStorageBox extends javax.swing.JFrame {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
+        MenuCliente = new javax.swing.JMenu();
+        itmCliente = new javax.swing.JMenuItem();
+        itmBuscarCliente = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
-        MenuCliente = new javax.swing.JMenu();
-        itmCliente = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,7 +49,7 @@ public class FrmStorageBox extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1034, Short.MAX_VALUE)
+            .addGap(0, 1022, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -54,7 +59,22 @@ public class FrmStorageBox extends javax.swing.JFrame {
         jMenuBar1.setMinimumSize(new java.awt.Dimension(70, 70));
         jMenuBar1.setPreferredSize(new java.awt.Dimension(70, 70));
 
-        jMenu2.setText("Edit");
+        MenuCliente.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 50, 8, 50));
+        MenuCliente.setText("Cliente");
+        MenuCliente.setMargin(new java.awt.Insets(8, 20, 8, 20));
+        MenuCliente.addActionListener(this::MenuClienteActionPerformed);
+
+        itmCliente.setText("Cliente");
+        itmCliente.addActionListener(this::itmClienteActionPerformed);
+        MenuCliente.add(itmCliente);
+
+        itmBuscarCliente.setText("Buscar cliente");
+        itmBuscarCliente.addActionListener(this::itmBuscarClienteActionPerformed);
+        MenuCliente.add(itmBuscarCliente);
+
+        jMenuBar1.add(MenuCliente);
+
+        jMenu2.setText("edit");
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("jMenu3");
@@ -63,24 +83,16 @@ public class FrmStorageBox extends javax.swing.JFrame {
         jMenu4.setText("jMenu4");
         jMenuBar1.add(jMenu4);
 
-        MenuCliente.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 50, 8, 50));
-        MenuCliente.setText("Cliente");
-        MenuCliente.setMargin(new java.awt.Insets(8, 20, 8, 20));
-        MenuCliente.addActionListener(this::MenuClienteActionPerformed);
-
-        itmCliente.setText("jMenuItem1");
-        itmCliente.addActionListener(this::itmClienteActionPerformed);
-        MenuCliente.add(itmCliente);
-
-        jMenuBar1.add(MenuCliente);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jDesktopPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,7 +109,7 @@ public class FrmStorageBox extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuClienteActionPerformed
 
     private void itmClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmClienteActionPerformed
-            FrmCliente ventanaCliente = new FrmCliente();
+    FrmCliente ventanaCliente = new FrmCliente(controladorCliente);
     jDesktopPane1.add(ventanaCliente);
     ventanaCliente.setVisible(true);
     try {
@@ -105,6 +117,16 @@ public class FrmStorageBox extends javax.swing.JFrame {
     } catch (java.beans.PropertyVetoException e) {
     }
     }//GEN-LAST:event_itmClienteActionPerformed
+
+    private void itmBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmBuscarClienteActionPerformed
+   FrmBuscarCliente frm = new FrmBuscarCliente(controladorCliente);
+    jDesktopPane1.add(frm);
+    frm.setVisible(true);
+    try {
+        frm.setSelected(true);
+    } catch (java.beans.PropertyVetoException e) {
+    }
+    }//GEN-LAST:event_itmBuscarClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -133,6 +155,7 @@ public class FrmStorageBox extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MenuCliente;
+    private javax.swing.JMenuItem itmBuscarCliente;
     private javax.swing.JMenuItem itmCliente;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu2;
