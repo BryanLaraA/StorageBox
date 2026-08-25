@@ -331,17 +331,9 @@ public class FrmEspacio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-       try {
-            int numero = Integer.parseInt(txtNumero.getText().trim());
-            Espacio espacio = controlador.buscarNumero(numero);
-            if (espacio == null) {
-                JOptionPane.showMessageDialog(this, "No se encontró el espacio " + numero + ".");
-                return;
-            }
-            mostrarEspacio(espacio);
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "El número debe ser un valor entero.");
-        }
+         FrmFiltradoBuscar frmBuscar = new FrmFiltradoBuscar(controlador, this);
+         getDesktopPane().add(frmBuscar);
+         frmBuscar.setVisible(true);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void cargarTabla() {
@@ -358,7 +350,7 @@ public class FrmEspacio extends javax.swing.JInternalFrame {
         }
     }
 
-    private void mostrarEspacio(Espacio espacio) {
+    public void mostrarEspacio(Espacio espacio) {
         txtNumero.setText(String.valueOf(espacio.getNumero()));
         jcTipo.setSelectedItem(tipoATexto(espacio.getTipo()));
         jcCapacidad.setSelectedItem(String.valueOf((int) espacio.getCapacidad()));

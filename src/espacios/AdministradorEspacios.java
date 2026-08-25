@@ -129,6 +129,51 @@ public class AdministradorEspacios {
     return resultado;
 }
     
+    public LinkedList<Espacio> filtrar(
+        Integer numero,
+        TipoEspacio tipo,
+        Boolean disponible,
+        Double precioMin,
+        Double precioMax) {
+
+    LinkedList<Espacio> resultado = new LinkedList<>();
+
+    for (Espacio espacio : espacios) {
+
+        boolean cumple = true;
+
+        if (numero != null &&
+                espacio.getNumero() != numero) {
+            cumple = false;
+        }
+
+        if (tipo != null &&
+                espacio.getTipo() != tipo) {
+            cumple = false;
+        }
+
+        if (disponible != null &&
+                espacio.isDisponible() != disponible) {
+            cumple = false;
+        }
+
+        if (precioMin != null &&
+                espacio.getPrecioMensual() < precioMin) {
+            cumple = false;
+        }
+
+        if (precioMax != null &&
+                espacio.getPrecioMensual() > precioMax) {
+            cumple = false;
+        }
+
+        if (cumple) {
+            resultado.add(espacio);
+        }
+    }
+
+    return resultado;
+}
     public LinkedList<Espacio> getEspacios() {
         return espacios;
     }
