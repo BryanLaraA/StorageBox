@@ -4,25 +4,48 @@
  */
 package clientes;
 
+import excepciones.ClienteConContratoExeption;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author bryan
  */
-public class FrmBuscarCliente extends javax.swing.JFrame {
+public class FrmBuscarCliente extends javax.swing.JInternalFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmBuscarCliente.class.getName());
-
+   private ControladorCliente controladorcliente;
     /**
      * Creates new form FrmBuscarCliente
      */
     public FrmBuscarCliente() {
         initComponents();
+        this.controladorcliente = controladorcliente;
+    cargarClientes();
     }
+    
+    public FrmBuscarCliente(ControladorCliente controladorcliente) {
+    initComponents();
+    this.controladorcliente = controladorcliente;
+ 
+    cargarClientes();
+}
+    
+    private void cargarClientes() {
+    javax.swing.table.DefaultTableModel modelo =
+            (javax.swing.table.DefaultTableModel) jTable1.getModel();
 
-    FrmBuscarCliente(ControladorCliente controladorcliente) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    modelo.setRowCount(0);
+
+    for (Cliente cliente : controladorcliente.getClientes()) {
+        modelo.addRow(new Object[]{
+            cliente.getIdPersona(),
+            cliente.getNombre(),
+            cliente.getTelefono(),
+            cliente.getCorreoElectronico()
+        });
     }
-
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,7 +120,29 @@ public class FrmBuscarCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+         int filaSeleccionada = jTable1.getSelectedRow();
+
+    if (filaSeleccionada == -1) {
+        JOptionPane.showMessageDialog(this, "Seleccioná un cliente de la tabla");
+        return;
+    }
+
+    int id = (int) jTable1.getValueAt(filaSeleccionada, 0);
+
+    int confirmacion = JOptionPane.showConfirmDialog(this,
+            "¿Seguro que querés eliminar este cliente?", "Confirmar",
+            JOptionPane.YES_NO_OPTION);
+
+    if (confirmacion != JOptionPane.YES_OPTION) {
+        return;
+    }
+
+    try {
+        controladorcliente.eliminar(id, null);
+        cargarClientes();
+    } catch (ClienteConContratoExeption e) {
+        JOptionPane.showMessageDialog(this, e.getMessage());
+    }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
