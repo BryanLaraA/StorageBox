@@ -21,6 +21,7 @@ public class FrmStorageBox extends javax.swing.JFrame {
      */
     public FrmStorageBox() {
         initComponents();
+        setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         
 
     }
@@ -39,7 +40,9 @@ public class FrmStorageBox extends javax.swing.JFrame {
         MenuCliente = new javax.swing.JMenu();
         itmCliente = new javax.swing.JMenuItem();
         itmBuscarCliente = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        MenuEspacio = new javax.swing.JMenu();
+        itmEspacio = new javax.swing.JMenuItem();
+        itmBuscarEspacio = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
 
@@ -49,7 +52,7 @@ public class FrmStorageBox extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1022, Short.MAX_VALUE)
+            .addGap(0, 1034, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -74,8 +77,16 @@ public class FrmStorageBox extends javax.swing.JFrame {
 
         jMenuBar1.add(MenuCliente);
 
-        jMenu2.setText("edit");
-        jMenuBar1.add(jMenu2);
+        MenuEspacio.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 50, 8, 50));
+        MenuEspacio.setText("Espacio");
+
+        itmEspacio.setText("Espacio");
+        MenuEspacio.add(itmEspacio);
+
+        itmBuscarEspacio.setText("BuscarEspacio");
+        MenuEspacio.add(itmBuscarEspacio);
+
+        jMenuBar1.add(MenuEspacio);
 
         jMenu3.setText("jMenu3");
         jMenuBar1.add(jMenu3);
@@ -89,16 +100,11 @@ public class FrmStorageBox extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jDesktopPane1)
-                .addContainerGap())
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -155,10 +161,12 @@ public class FrmStorageBox extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MenuCliente;
+    private javax.swing.JMenu MenuEspacio;
     private javax.swing.JMenuItem itmBuscarCliente;
+    private javax.swing.JMenuItem itmBuscarEspacio;
     private javax.swing.JMenuItem itmCliente;
+    private javax.swing.JMenuItem itmEspacio;
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
