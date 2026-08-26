@@ -1,19 +1,13 @@
 package espacios;
-import espacios.Espacio;
-import espacios.TipoEspacio;
+
 import excepciones.EspacioAlquiladoException;
 import excepciones.EspacioDuplicadoException;
 import java.util.LinkedList;
 
-
 public class AdministradorEspacios {
 
-     private LinkedList<Espacio> espacios;
- 
-    public AdministradorEspacios() {
-        espacios = new LinkedList<>();
-    }
- 
+    private final LinkedList<Espacio> espacios = new LinkedList<>();
+
     public void agregar(Espacio espacio) throws EspacioDuplicadoException {
         if (espacio == null) {
             return;
@@ -23,40 +17,16 @@ public class AdministradorEspacios {
         }
         espacios.add(espacio);
     }
- 
-    private boolean existeNumero(int numero) {
-        for (Espacio espacio : espacios) {
-            if (espacio.getNumero() == numero) {
-                return true;
-            }
-        }
-        return false;
-    }
- 
-    public Espacio buscarNumero(int numero) {
-        for (Espacio espacio : espacios) {
- 
-            if (espacio.getNumero() == numero) {
-                return espacio;
-            }
-        }
-        return null;
-    }
- 
-    public boolean actualizar(Espacio espacioActualizado) {
-        if (espacioActualizado == null) {
+
+    public boolean actualizar(int numero, TipoEspacio tipo, double precioMensual) {
+        Espacio espacio = buscarNumero(numero);
+        if (espacio == null) {
             return false;
         }
-        Espacio existente = buscarNumero(espacioActualizado.getNumero());
-        if (existente == null) {
-            return false;
-        }
-        existente.setTipo(espacioActualizado.getTipo());
-        existente.setCapacidad(espacioActualizado.getCapacidad());
-        existente.setPrecioMensual(espacioActualizado.getPrecioMensual());
+        espacio.actualizarDatos(tipo, precioMensual);
         return true;
     }
- 
+
     public boolean eliminar(int numero) throws EspacioAlquiladoException {
         Espacio espacio = buscarNumero(numero);
         if (espacio == null) {
@@ -65,10 +35,9 @@ public class AdministradorEspacios {
         if (!espacio.isDisponible()) {
             throw new EspacioAlquiladoException();
         }
-        espacios.remove(espacio);
-        return true;
+        return espacios.remove(espacio);
     }
- 
+
     public boolean ocupar(int numero) {
         Espacio espacio = buscarNumero(numero);
         if (espacio == null || !espacio.isDisponible()) {
@@ -77,105 +46,49 @@ public class AdministradorEspacios {
         espacio.ocupar();
         return true;
     }
- 
+
     public boolean liberar(int numero) {
         Espacio espacio = buscarNumero(numero);
         if (espacio == null) {
             return false;
         }
-        espacio.cambiardisponible();
+        espacio.liberar();
         return true;
     }
-    
-    public LinkedList<Espacio> buscarTipo(TipoEspacio tipo) {
 
-    LinkedList<Espacio> resultado = new LinkedList<>();
-
-    for (Espacio espacio : espacios) {
-
-        if (espacio.getTipo() == tipo) {
-            resultado.add(espacio);
+    public Espacio buscarNumero(int numero) {
+        for (Espacio espacio : espacios) {
+            if (espacio.getNumero() == numero) {
+                return espacio;
+            }
         }
+        return null;
     }
 
-    return resultado;
-}
- 
-    public LinkedList<Espacio> buscarDisponibilidad(boolean disponible) {
-
-    LinkedList<Espacio> resultado = new LinkedList<>();
-
-    for (Espacio espacio : espacios) {
-
-        if (espacio.isDisponible() == disponible) {
-            resultado.add(espacio);
-        }
+    private boolean existeNumero(int numero) {
+        return buscarNumero(numero) != null;
     }
 
-    return resultado;
-}
-    
-    public LinkedList<Espacio> buscarPorPrecio(double minimo, double maximo) {
-    LinkedList<Espacio> resultado = new LinkedList<>();
+    public LinkedList<Espacio> filtrar(Integer numero, TipoEspacio tipo, Boolean disponible,
+            Double precioMin, Double precioMax) {
 
-    for (Espacio espacio : espacios) {
+        LinkedList<Espacio> resultado = new LinkedList<>();
 
-        if (espacio.getPrecioMensual() >= minimo &&
-            espacio.getPrecioMensual() <= maximo) {
-            resultado.add(espacio);
+        for (Espacio espacio : espacios) {
+            boolean cumple = (numero == null || espacio.getNumero() == numero)
+                    && (tipo == null || espacio.getTipo() == tipo)
+                    && (disponible == null || espacio.isDisponible() == disponible)
+                    && (precioMin == null || espacio.getPrecioMensual() >= precioMin)
+                    && (precioMax == null || espacio.getPrecioMensual() <= precioMax);
+
+            if (cumple) {
+                resultado.add(espacio);
+            }
         }
+        return resultado;
     }
 
-    return resultado;
-}
-    
-    public LinkedList<Espacio> filtrar(
-        Integer numero,
-        TipoEspacio tipo,
-        Boolean disponible,
-        Double precioMin,
-        Double precioMax) {
-
-    LinkedList<Espacio> resultado = new LinkedList<>();
-
-    for (Espacio espacio : espacios) {
-
-        boolean cumple = true;
-
-        if (numero != null &&
-                espacio.getNumero() != numero) {
-            cumple = false;
-        }
-
-        if (tipo != null &&
-                espacio.getTipo() != tipo) {
-            cumple = false;
-        }
-
-        if (disponible != null &&
-                espacio.isDisponible() != disponible) {
-            cumple = false;
-        }
-
-        if (precioMin != null &&
-                espacio.getPrecioMensual() < precioMin) {
-            cumple = false;
-        }
-
-        if (precioMax != null &&
-                espacio.getPrecioMensual() > precioMax) {
-            cumple = false;
-        }
-
-        if (cumple) {
-            resultado.add(espacio);
-        }
-    }
-
-    return resultado;
-}
     public LinkedList<Espacio> getEspacios() {
         return espacios;
     }
- 
 }

@@ -140,7 +140,7 @@ public class FrmStorageBox extends javax.swing.JFrame {
     }//GEN-LAST:event_itmBuscarClienteActionPerformed
 
     private void itmEspacioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmEspacioActionPerformed
-   FrmEspacio ventanaEspacio = new FrmEspacio(administradorEspacios);
+    FrmEspacio ventanaEspacio = new FrmEspacio(administradorEspacios);
     jDesktopPane1.add(ventanaEspacio);
     ventanaEspacio.setVisible(true);
     try {
@@ -152,8 +152,8 @@ public class FrmStorageBox extends javax.swing.JFrame {
     }//GEN-LAST:event_itmEspacioActionPerformed
 
     private void itmBuscarEspacioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmBuscarEspacioActionPerformed
-    if (frmBuscarEspacio != null && !frmBuscarEspacio.isClosed()) {
-        try {
+         if (frmBuscarEspacio != null && !frmBuscarEspacio.isClosed()) {
+         try {
             frmBuscarEspacio.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }

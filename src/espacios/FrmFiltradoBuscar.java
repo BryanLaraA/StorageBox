@@ -259,7 +259,7 @@ public class FrmFiltradoBuscar extends javax.swing.JInternalFrame {
             switch (tipoTexto) {
 
                 case "Pequeño":
-                    tipo = TipoEspacio.PEQUENO;
+                    tipo = TipoEspacio.PEQUEÑO;
                     break;
 
                 case "Mediano":
