@@ -6,6 +6,8 @@ package Interfaz;
 
 import clientes.Cliente;
 import clientes.ControladorCliente;
+import espacios.FrmEspacio;
+import espacios.FrmFiltradoBuscar;
 
 /**
  *
@@ -15,7 +17,8 @@ public class FrmStorageBox extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmStorageBox.class.getName());
     private ControladorCliente controladorCliente = new ControladorCliente();
-
+    private espacios.AdministradorEspacios administradorEspacios = new espacios.AdministradorEspacios();
+    private FrmFiltradoBuscar frmBuscarEspacio;
     /**
      * Creates new form FrmStorageBox
      */
@@ -81,9 +84,11 @@ public class FrmStorageBox extends javax.swing.JFrame {
         MenuEspacio.setText("Espacio");
 
         itmEspacio.setText("Espacio");
+        itmEspacio.addActionListener(this::itmEspacioActionPerformed);
         MenuEspacio.add(itmEspacio);
 
         itmBuscarEspacio.setText("BuscarEspacio");
+        itmBuscarEspacio.addActionListener(this::itmBuscarEspacioActionPerformed);
         MenuEspacio.add(itmBuscarEspacio);
 
         jMenuBar1.add(MenuEspacio);
@@ -134,6 +139,38 @@ public class FrmStorageBox extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_itmBuscarClienteActionPerformed
 
+    private void itmEspacioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmEspacioActionPerformed
+   FrmEspacio ventanaEspacio = new FrmEspacio(administradorEspacios);
+    jDesktopPane1.add(ventanaEspacio);
+    ventanaEspacio.setVisible(true);
+    try {
+        ventanaEspacio.setSelected(true);
+    } catch (java.beans.PropertyVetoException e) {
+    }
+    
+
+    }//GEN-LAST:event_itmEspacioActionPerformed
+
+    private void itmBuscarEspacioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmBuscarEspacioActionPerformed
+    if (frmBuscarEspacio != null && !frmBuscarEspacio.isClosed()) {
+        try {
+            frmBuscarEspacio.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
+        return;
+    }
+
+    frmBuscarEspacio = new FrmFiltradoBuscar(administradorEspacios);
+    jDesktopPane1.add(frmBuscarEspacio);
+    frmBuscarEspacio.setVisible(true);
+    try {
+        frmBuscarEspacio.setSelected(true);
+    } catch (java.beans.PropertyVetoException e) {
+    }
+    
+    }//GEN-LAST:event_itmBuscarEspacioActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */

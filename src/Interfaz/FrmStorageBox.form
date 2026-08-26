@@ -60,11 +60,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Espacio"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmEspacioActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itmBuscarEspacio">
               <Properties>
                 <Property name="text" type="java.lang.String" value="BuscarEspacio"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmBuscarEspacioActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

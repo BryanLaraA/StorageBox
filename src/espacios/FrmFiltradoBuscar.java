@@ -20,7 +20,11 @@ public class FrmFiltradoBuscar extends javax.swing.JInternalFrame {
     
     private AdministradorEspacios controlador;
     private FrmEspacio frmPrincipal;
+    
   
+    public FrmFiltradoBuscar(AdministradorEspacios controlador) {
+        this(controlador, null);
+    }
     public FrmFiltradoBuscar(AdministradorEspacios controlador, FrmEspacio frmPrincipal) {
     initComponents();
     this.controlador = controlador;
@@ -28,13 +32,9 @@ public class FrmFiltradoBuscar extends javax.swing.JInternalFrame {
     cargarTabla(controlador.getEspacios());
 }
   private void cargarTabla(LinkedList<Espacio> lista) {
-
     DefaultTableModel modelo = (DefaultTableModel) tblEspacios.getModel();
-
     modelo.setRowCount(0);
-
     for (Espacio espacio : lista) {
-
         modelo.addRow(new Object[]{
             espacio.getNumero(),
             espacio.getTipo(),
@@ -66,6 +66,11 @@ public class FrmFiltradoBuscar extends javax.swing.JInternalFrame {
         btnLimpiar = new javax.swing.JButton();
         btnAceptar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Buscar Espacios");
@@ -323,7 +328,11 @@ public class FrmFiltradoBuscar extends javax.swing.JInternalFrame {
 
         Espacio espacio =controlador.buscarNumero(numero);
 
-       frmPrincipal.mostrarEspacio(espacio);
+        if (frmPrincipal != null) {
+            frmPrincipal.mostrarEspacio(espacio);
+        } else {
+            JOptionPane.showMessageDialog(this, "Espacio N° " + espacio.getNumero() + " seleccionado.");
+        }
         dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
