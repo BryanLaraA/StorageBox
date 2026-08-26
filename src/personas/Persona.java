@@ -12,6 +12,7 @@ public abstract class Persona {
     protected int ID;
     protected String nombreCompleto;
     protected String Puesto;
+    protected String telefono;
 
     public Persona() {
     }
