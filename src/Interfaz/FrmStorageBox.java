@@ -9,7 +9,9 @@ import clientes.ControladorCliente;
 import espacios.FrmEspacio;
 import espacios.FrmFiltradoBuscar;
 import Interfaz.JInFrmServicio;
+import administracionempleados.Controladorempleado;
 import servicios.Controladorservicio;
+import Interfaz.JInFrmBuscarEmpleado;
 
 /**
  *
@@ -23,6 +25,8 @@ public class FrmStorageBox extends javax.swing.JFrame {
     private FrmFiltradoBuscar frmBuscarEspacio;
     private servicios.Controladorservicio controladorservicio = new servicios.Controladorservicio();
     private JInlFrmBuscarServicio frmBuscarServicio;
+    private Controladorempleado controladorem = new Controladorempleado();
+    private JInFrmBuscarEmpleado frmBuscarEmpleado;
 
     /**
      * Creates new form FrmStorageBox
@@ -57,6 +61,9 @@ public class FrmStorageBox extends javax.swing.JFrame {
         MenuServicio = new javax.swing.JMenu();
         itmServicio = new javax.swing.JMenuItem();
         itmBuscarServicio = new javax.swing.JMenuItem();
+        menuEmpleado = new javax.swing.JMenu();
+        itmEmpleado = new javax.swing.JMenuItem();
+        itmBuscarEmpleado = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -119,6 +126,18 @@ public class FrmStorageBox extends javax.swing.JFrame {
         MenuServicio.add(itmBuscarServicio);
 
         jMenuBar1.add(MenuServicio);
+
+        menuEmpleado.setText("Empleado");
+
+        itmEmpleado.setText("empleados");
+        itmEmpleado.addActionListener(this::itmEmpleadoActionPerformed);
+        menuEmpleado.add(itmEmpleado);
+
+        itmBuscarEmpleado.setText("buscar empleados");
+        itmBuscarEmpleado.addActionListener(this::itmBuscarEmpleadoActionPerformed);
+        menuEmpleado.add(itmBuscarEmpleado);
+
+        jMenuBar1.add(menuEmpleado);
 
         setJMenuBar(jMenuBar1);
 
@@ -220,6 +239,44 @@ public class FrmStorageBox extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_itmBuscarServicioActionPerformed
 
+    private void itmEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmEmpleadoActionPerformed
+        JInlFrmEmpleados frm = new JInlFrmEmpleados(controladorem);
+
+        jDesktopPane1.add(frm);
+
+        frm.setVisible(true);
+
+        try {
+            frm.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }    }//GEN-LAST:event_itmEmpleadoActionPerformed
+
+    private void itmBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmBuscarEmpleadoActionPerformed
+        if (frmBuscarEmpleado != null
+                && !frmBuscarEmpleado.isClosed()) {
+
+            try {
+                frmBuscarEmpleado.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+
+            return;
+        }
+
+        frmBuscarEmpleado
+                = new JInFrmBuscarEmpleado(controladorem);
+
+        jDesktopPane1.add(frmBuscarEmpleado);
+
+        frmBuscarEmpleado.setVisible(true);
+
+        try {
+            frmBuscarEmpleado.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
+
+    }//GEN-LAST:event_itmBuscarEmpleadoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -250,14 +307,17 @@ public class FrmStorageBox extends javax.swing.JFrame {
     private javax.swing.JMenu MenuEspacio;
     private javax.swing.JMenu MenuServicio;
     private javax.swing.JMenuItem itmBuscarCliente;
+    private javax.swing.JMenuItem itmBuscarEmpleado;
     private javax.swing.JMenuItem itmBuscarEspacio;
     private javax.swing.JMenuItem itmBuscarServicio;
     private javax.swing.JMenuItem itmCliente;
+    private javax.swing.JMenuItem itmEmpleado;
     private javax.swing.JMenuItem itmEspacio;
     private javax.swing.JMenuItem itmServicio;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu menuEmpleado;
     // End of variables declaration//GEN-END:variables
 }

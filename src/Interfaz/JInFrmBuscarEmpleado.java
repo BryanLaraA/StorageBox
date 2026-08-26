@@ -22,6 +22,8 @@ public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
      */
     public JInFrmBuscarEmpleado(Controladorempleado controladorem) {
         initComponents();
+
+        this.controladorem = controladorem;
         cargarEmpleados();
         setClosable(true);
         setMaximizable(true);
