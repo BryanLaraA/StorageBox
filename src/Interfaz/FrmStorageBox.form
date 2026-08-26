@@ -84,6 +84,29 @@
             <Property name="text" type="java.lang.String" value="jMenu4"/>
           </Properties>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="MenuServicio">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Servicio"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="itmServicio">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="servicios"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmServicioActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itmBuscarServicio">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Buscar servicio"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmBuscarServicioActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
       </SubComponents>
     </Menu>
   </NonVisualComponents>

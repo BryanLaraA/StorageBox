@@ -16,6 +16,7 @@ import servicios.Servicio;
 public class JInlFrmBuscarServicio extends javax.swing.JInternalFrame {
 
     private Controladorservicio controladorservicio;
+
     /**
      * Creates new form JInlFrmBuscarServicio
      */
@@ -23,6 +24,10 @@ public class JInlFrmBuscarServicio extends javax.swing.JInternalFrame {
         initComponents();
         this.controladorservicio = controladorservicio;
         cargarServicios();
+        setClosable(true);
+        setMaximizable(true);
+        setIconifiable(true);
+        setResizable(true);
     }
 
     /**
@@ -38,7 +43,6 @@ public class JInlFrmBuscarServicio extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablaServicio = new javax.swing.JTable();
-        btnVolver = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -57,10 +61,6 @@ public class JInlFrmBuscarServicio extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTablaServicio);
 
-        btnVolver.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnVolver.setText("Volver");
-        btnVolver.addActionListener(this::btnVolverActionPerformed);
-
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(this::btnEliminarActionPerformed);
@@ -69,17 +69,15 @@ public class JInlFrmBuscarServicio extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnVolver)
-                .addGap(18, 18, 18)
-                .addComponent(btnEliminar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 787, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(144, 144, 144))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnEliminar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -88,11 +86,9 @@ public class JInlFrmBuscarServicio extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -115,11 +111,7 @@ public class JInlFrmBuscarServicio extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        dispose();
-    }//GEN-LAST:event_btnVolverActionPerformed
-
-        private void cargarServicios() {
+    private void cargarServicios() {
 
         DefaultTableModel modelo = (DefaultTableModel) jTablaServicio.getModel();
 
@@ -135,7 +127,7 @@ public class JInlFrmBuscarServicio extends javax.swing.JInternalFrame {
             });
         }
     }
-    
+
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int fila = jTablaServicio.getSelectedRow();
 
@@ -144,13 +136,13 @@ public class JInlFrmBuscarServicio extends javax.swing.JInternalFrame {
             return;
         }
 
-        int opcion = JOptionPane.showConfirmDialog(this,"¿Desea eliminar el servicio?"
+        int opcion = JOptionPane.showConfirmDialog(this, "¿Desea eliminar el servicio?"
         );
 
         if (opcion == JOptionPane.YES_OPTION) {
 
             int codigo = Integer.parseInt(
-                jTablaServicio.getValueAt(fila, 0).toString()
+                    jTablaServicio.getValueAt(fila, 0).toString()
             );
 
             controladorservicio.eliminar(codigo);
@@ -164,7 +156,6 @@ public class JInlFrmBuscarServicio extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

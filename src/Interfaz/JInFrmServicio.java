@@ -14,14 +14,19 @@ import servicios.Servicio;
  */
 public class JInFrmServicio extends javax.swing.JInternalFrame {
 
-    
     private Controladorservicio controladorservicio;
+
     /**
      * Creates new form JInFrmServicio
      */
-    public JInFrmServicio() {
+    public JInFrmServicio(Controladorservicio controladorservicio) {
         initComponents();
-        controladorservicio = new Controladorservicio();
+        this.controladorservicio = controladorservicio;
+
+        setClosable(true);
+        setMaximizable(true);
+        setIconifiable(true);
+        setResizable(true);
     }
 
     /**
@@ -36,7 +41,6 @@ public class JInFrmServicio extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        btnMostrar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JTextField();
@@ -50,10 +54,6 @@ public class JInFrmServicio extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("                            Servicios");
         jLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        btnMostrar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnMostrar.setText("Mostrar");
-        btnMostrar.addActionListener(this::btnMostrarActionPerformed);
 
         btnGuardar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnGuardar.setText("Guardar");
@@ -81,9 +81,7 @@ public class JInFrmServicio extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(btnGuardar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnMostrar))
+                        .addComponent(btnGuardar))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel4)
@@ -120,9 +118,7 @@ public class JInFrmServicio extends javax.swing.JInternalFrame {
                     .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
-                    .addComponent(btnMostrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -145,12 +141,6 @@ public class JInFrmServicio extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
-    JInlFrmBuscarServicio frm = new JInlFrmBuscarServicio(controladorservicio);
-
-    frm.setVisible(true);
-    }//GEN-LAST:event_btnMostrarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         String nombre = txtNombre.getText().trim();
@@ -186,12 +176,12 @@ public class JInFrmServicio extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "El precio debe ser numérico");
 
         }
-        }
+    }
 
-        private void limpiarCampos() {
-            txtNombre.setText("");
-            txtDescripcion.setText("");
-            txtPrecio.setText("");
+    private void limpiarCampos() {
+        txtNombre.setText("");
+        txtDescripcion.setText("");
+        txtPrecio.setText("");
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
@@ -201,7 +191,6 @@ public class JInFrmServicio extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnMostrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

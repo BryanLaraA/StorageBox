@@ -16,13 +16,17 @@ import javax.swing.table.DefaultTableModel;
 public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
 
     private Controladorempleado controladorem;
+
     /**
      * Creates new form JInFrmBuscarEmpleado
      */
     public JInFrmBuscarEmpleado(Controladorempleado controladorem) {
         initComponents();
-
         cargarEmpleados();
+        setClosable(true);
+        setMaximizable(true);
+        setIconifiable(true);
+        setResizable(true);
     }
 
     /**
@@ -37,7 +41,6 @@ public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablaEmpleado = new javax.swing.JTable();
-        btnVolver = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -55,10 +58,6 @@ public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTablaEmpleado);
 
-        btnVolver.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnVolver.setText("Volver");
-        btnVolver.addActionListener(this::btnVolverActionPerformed);
-
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(this::btnEliminarActionPerformed);
@@ -70,10 +69,7 @@ public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnVolver)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEliminar))
+                    .addComponent(btnEliminar)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -83,9 +79,7 @@ public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
                 .addGap(16, 16, 16)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
@@ -133,15 +127,11 @@ public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        dispose();
-    }//GEN-LAST:event_btnVolverActionPerformed
-
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int fila = jTablaEmpleado.getSelectedRow();
 
         if (fila == -1) {
-            JOptionPane.showMessageDialog(this,"Seleccione un empleado");
+            JOptionPane.showMessageDialog(this, "Seleccione un empleado");
             return;
         }
 
@@ -149,17 +139,17 @@ public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
 
         if (controladorem.eliminar(nombre)) {
 
-            JOptionPane.showMessageDialog(this,"Empleado eliminado");
+            JOptionPane.showMessageDialog(this, "Empleado eliminado");
 
             cargarEmpleados();
 
         } else {
 
-            JOptionPane.showMessageDialog(this,"No se pudo eliminar");
+            JOptionPane.showMessageDialog(this, "No se pudo eliminar");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-        private void cargarEmpleados() {
+    private void cargarEmpleados() {
 
         DefaultTableModel modelo
                 = (DefaultTableModel) jTablaEmpleado.getModel();
@@ -180,7 +170,6 @@ public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
