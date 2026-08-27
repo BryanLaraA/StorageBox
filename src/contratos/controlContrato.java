@@ -7,6 +7,7 @@ import excepciones.EstadoInvalidoException;
 import excepciones.FechaInvalidaException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import servicios.Servicio;
  
 public class controlContrato {
@@ -17,7 +18,7 @@ public class controlContrato {
         contratos = new ArrayList<>();
     }
     
-    public ArrayList<Espacio> buscarDisponiblesTipo(ArrayList<Espacio> espacios,
+    public ArrayList<Espacio> buscarDisponiblesTipo(LinkedList<Espacio> espacios,
             TipoEspacio tipo, LocalDate fechaInicio, LocalDate fechaFin) {
         ArrayList<Espacio> delTipo = new ArrayList<>();
         for (Espacio e : espacios) {
