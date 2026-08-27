@@ -7,11 +7,14 @@ import contratos.Contrato;
 import espacios.AdministradorEspacios;
 import espacios.Espacio;
 import espacios.TipoEspacio;
+import java.awt.event.ItemListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import servicios.Controladorservicio;
+import servicios.Servicio;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
@@ -31,6 +34,7 @@ public class FrmContratos extends javax.swing.JInternalFrame {
     
     private Cliente clienteSeleccionado;
     private Espacio espacioSeleccionado;
+    private JCheckBox[] checkboxesServicios;
     
     public FrmContratos(controlContrato controlContrato, ControladorCliente controlCliente, 
                 AdministradorEspacios controlEspacio, Controladorservicio controlServicio) {
@@ -39,10 +43,52 @@ public class FrmContratos extends javax.swing.JInternalFrame {
         this.controlCliente = controlCliente;
         this.controlEspacio = controlEspacio;
         this.controlServicio = controlServicio;
+        
+        addInternalFrameListener(new javax.swing.event.InternalFrameAdapter() {
+            @Override
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent e) {
+                cargarCheckboxesServicios();
+            }
+        });
+        
         setClosable(true);
         setMaximizable(true);
         setIconifiable(true);
         setResizable(true);
+    }
+    private void cargarCheckboxesServicios() {
+        checkboxesServicios = new JCheckBox[]{
+        checkBox1, checkBox2, checkBox3, checkBox4, checkBox5,
+        checkBox6, checkBox7, checkBox8, checkBox9
+        };
+        ArrayList<Servicio> servicios = controlServicio.getServicios();
+        for (int i = 0; i < checkboxesServicios.length; i++) {
+            if (i < servicios.size()) {
+                Servicio s = servicios.get(i);
+                checkboxesServicios[i].setText(s.getNombre());
+                checkboxesServicios[i].putClientProperty("servicio", s);
+                checkboxesServicios[i].setVisible(true);
+                checkboxesServicios[i].setSelected(false);
+            } else {
+                checkboxesServicios[i].setText("");
+                checkboxesServicios[i].putClientProperty("servicio", null);
+                checkboxesServicios[i].setVisible(false);
+            }
+            for (ItemListener l : checkboxesServicios[i].getItemListeners()) {
+                checkboxesServicios[i].removeItemListener(l); 
+            }
+            checkboxesServicios[i].addItemListener(e -> recalcularCostos());
+        }
+    }
+    private ArrayList<Servicio> obtenerServiciosSeleccionados() {
+        ArrayList<Servicio> seleccionados = new ArrayList<>();
+        for (javax.swing.JCheckBox cb : checkboxesServicios) {
+            Servicio s = (Servicio) cb.getClientProperty("servicio");
+            if (s != null && cb.isSelected()) {
+                seleccionados.add(s);
+            }
+        }
+        return seleccionados;
     }
     private void updateEspacioDisponible() {
         TipoEspacio tipo = obtenerTipoSeleccionado();
