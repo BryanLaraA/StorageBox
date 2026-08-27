@@ -52,6 +52,22 @@ public class Contrato {
             throw new FechaInvalidaException("El período del contrato debe ser de al menos un día.");
         }
     }
+    public static double[] calcularCostosPreview(Espacio espacio, LocalDate fechaInicio,
+            LocalDate fechaFin, ArrayList<Servicio> servicios) {
+        long dias = ChronoUnit.DAYS.between(fechaInicio, fechaFin);
+        int periodos = dias <= 0 ? 1 : (int) Math.ceil(dias / 30.0);
+        double costoEspacio = espacio.getPrecioMensual() * periodos;
+        double costoServicios = 0;
+        if (servicios != null) {
+            for (Servicio s : servicios) {
+                costoServicios += s.getPrecio();
+            }
+        }
+        double totalConImpuesto = costoEspacio + costoServicios;
+        double subtotal = totalConImpuesto / (1 + IMPUESTO);
+        double impuestos = totalConImpuesto - subtotal;
+        return new double[]{subtotal, impuestos, totalConImpuesto};
+    }
 
     public long calcularDias() {
         return ChronoUnit.DAYS.between(fechaInicio, fechaFin);

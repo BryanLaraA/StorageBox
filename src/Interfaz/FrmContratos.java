@@ -7,6 +7,7 @@ import contratos.Contrato;
 import espacios.AdministradorEspacios;
 import espacios.Espacio;
 import espacios.TipoEspacio;
+import excepciones.EstadoInvalidoException;
 import java.awt.event.ItemListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class FrmContratos extends javax.swing.JInternalFrame {
     
     private Cliente clienteSeleccionado;
     private Espacio espacioSeleccionado;
+    private Contrato contratoCargado;
     private JCheckBox[] checkboxesServicios;
     
     public FrmContratos(controlContrato controlContrato, ControladorCliente controlCliente, 
@@ -124,26 +126,41 @@ public class FrmContratos extends javax.swing.JInternalFrame {
         return fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
     }
     private void recalcularCostos() {
-        if (espacioSeleccionado == null || txtFechaInicio.getDate() == null || txtFechaFin.getDate() == null) {
-            lblSubtotal.setText("0.00");
-            lblImpuestos.setText("0.00");
-            lblTotal.setText("0.00");
-            return;
-        }
-
-        Contrato contrato = new Contrato(clienteSeleccionado, espacioSeleccionado,
-                convertirALocalDate(txtFechaInicio.getDate()), convertirALocalDate(txtFechaFin.getDate()));
-
-        if (checkBox1.isSelected()) {
-            // no terminado!!
-        }
-
-        contrato.calcularCostos();
-
-        lblSubtotal.setText(String.format("%,.2f", contrato.getSubTotal()));
-        lblImpuestos.setText(String.format("%,.2f", contrato.getImpuestos()));
-        lblTotal.setText(String.format("%,.2f", contrato.getTotal()));
+    if (espacioSeleccionado == null || txtFechaInicio.getDate() == null || txtFechaFin.getDate() == null) {
+        lblSubtotal.setText("0.00");
+        lblImpuestos.setText("0.00");
+        lblTotal.setText("0.00");
+        return;
     }
+
+    double[] costos = Contrato.calcularCostosPreview(espacioSeleccionado,
+            convertirALocalDate(txtFechaInicio.getDate()),
+            convertirALocalDate(txtFechaFin.getDate()),
+            obtenerServiciosSeleccionados());
+
+    lblSubtotal.setText(String.format("%,.2f", costos[0]));
+    lblImpuestos.setText(String.format("%,.2f", costos[1]));
+    lblTotal.setText(String.format("%,.2f", costos[2]));
+    }
+    public void cargarContrato(Contrato contrato) {
+    contratoCargado = contrato;
+    clienteSeleccionado = contrato.getCliente();
+    espacioSeleccionado = contrato.getEspacio();
+
+    lblClienteSeleccionado.setText(contrato.getCliente().getNombre());
+    lblEspacioSeleccionado.setText("Espacio #" + contrato.getEspacio().getNumero());
+    txtFechaInicio.setDate(java.sql.Date.valueOf(contrato.getFechaInicio()));
+    txtFechaFin.setDate(java.sql.Date.valueOf(contrato.getFechaFin()));
+
+    for (javax.swing.JCheckBox cb : checkboxesServicios) {
+        Servicio s = (Servicio) cb.getClientProperty("servicio");
+        cb.setSelected(s != null && contrato.getServiciosAdicionales().contains(s));
+    }
+
+    lblSubtotal.setText(String.format("%,.2f", contrato.getSubTotal()));
+    lblImpuestos.setText(String.format("%,.2f", contrato.getImpuestos()));
+    lblTotal.setText(String.format("%,.2f", contrato.getTotal()));
+}
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -257,18 +274,23 @@ public class FrmContratos extends javax.swing.JInternalFrame {
 
         btnActivar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnActivar.setText("Activar");
+        btnActivar.addActionListener(this::btnActivarActionPerformed);
 
         btnCrear.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnCrear.setText("Crear");
+        btnCrear.addActionListener(this::btnCrearActionPerformed);
 
         btnFinalizar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnFinalizar.setText("Finalizar");
+        btnFinalizar.addActionListener(this::btnFinalizarActionPerformed);
 
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(this::btnCancelarActionPerformed);
 
         btnBuscarContrato.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnBuscarContrato.setText("Buscar Contrato");
+        btnBuscarContrato.addActionListener(this::btnBuscarContratoActionPerformed);
 
         btnLimpiar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnLimpiar.setText("Limpiar");
@@ -487,6 +509,53 @@ public class FrmContratos extends javax.swing.JInternalFrame {
     private void comboxEspacioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboxEspacioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboxEspacioActionPerformed
+
+    private void btnBuscarContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarContratoActionPerformed
+        
+    }//GEN-LAST:event_btnBuscarContratoActionPerformed
+
+    private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed
+        if (contratoCargado == null) {
+            JOptionPane.showMessageDialog(this, "Primero busque un contrato.");
+            return;
+        }
+        try {
+            controlContrato.activarContrato(contratoCargado);
+            JOptionPane.showMessageDialog(this, "Contrato #" + contratoCargado.getNumeroContrato() + " activado.");
+        } catch (EstadoInvalidoException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_btnActivarActionPerformed
+
+    private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
+        if (contratoCargado == null) {
+            JOptionPane.showMessageDialog(this, "Primero busque un contrato.");
+            return;
+        }
+        try {
+            controlContrato.finalizarContrato(contratoCargado);
+            JOptionPane.showMessageDialog(this, "Contrato #" + contratoCargado.getNumeroContrato() + " Finalizado.");
+        } catch (EstadoInvalidoException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_btnFinalizarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        if (contratoCargado == null) {
+            JOptionPane.showMessageDialog(this, "Primero busque un contrato.");
+            return;
+        }
+        try {
+            controlContrato.cancelarContrato(contratoCargado);
+            JOptionPane.showMessageDialog(this, "Contrato #" + contratoCargado.getNumeroContrato() + " Cancelado.");
+        } catch (EstadoInvalidoException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCrearActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
