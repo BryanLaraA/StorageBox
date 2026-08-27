@@ -3,8 +3,13 @@ package Interfaz;
 import clientes.Cliente;
 import contratos.controlContrato;
 import clientes.ControladorCliente;
+import contratos.Contrato;
 import espacios.AdministradorEspacios;
 import espacios.Espacio;
+import espacios.TipoEspacio;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import servicios.Controladorservicio;
 /*
@@ -28,7 +33,7 @@ public class FrmContratos extends javax.swing.JInternalFrame {
     private Espacio espacioSeleccionado;
     
     public FrmContratos(controlContrato controlContrato, ControladorCliente controlCliente, 
-            AdministradorEspacios controlEspacio, Controladorservicio controlServicio) {
+                AdministradorEspacios controlEspacio, Controladorservicio controlServicio) {
         initComponents();
         this.controlContrato = controlContrato;
         this.controlCliente = controlCliente;
@@ -39,7 +44,61 @@ public class FrmContratos extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setResizable(true);
     }
+    private void updateEspacioDisponible() {
+        TipoEspacio tipo = obtenerTipoSeleccionado();
+        Date fi = txtFechaInicio.getDate();
+        Date ff = txtFechaFin.getDate();
+        if (tipo == null || fi == null || ff == null) {
+        return;
+        }
+        LocalDate fechaInicio = convertirALocalDate(fi);
+        LocalDate fechaFin = convertirALocalDate(ff);
+        ArrayList<Espacio> disponibles = controlContrato.buscarDisponiblesTipo(
+                controlEspacio.getEspacios(), tipo, fechaInicio, fechaFin);
+        if (disponibles.isEmpty()) {
+            espacioSeleccionado = null;
+        lblEspacioSeleccionado.setText("Sin espacios disponibles");
+        } else {
+            espacioSeleccionado = disponibles.get(0);
+            lblEspacioSeleccionado.setText(disponibles.size() + " disponibles (asignado #" + espacioSeleccionado.getNumero() + ")");
+        }
+        recalcularCostos();
+    }
+    private TipoEspacio obtenerTipoSeleccionado() {
+        if (comboxEspacio.getSelectedItem() == null) return null;
+        String seleccion = comboxEspacio.getSelectedItem().toString().trim();
+        switch (seleccion) {
+            case "Pequeño": return TipoEspacio.PEQUEÑO;
+            case "Mediano": return TipoEspacio.MEDIANO;
+            case "Grande": return TipoEspacio.GRANDE;
+            default: return null;
+        }
+    }
+    private LocalDate convertirALocalDate(java.util.Date fecha) {
+        return fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+    }
+    private void recalcularCostos() {
+        if (espacioSeleccionado == null || txtFechaInicio.getDate() == null || txtFechaFin.getDate() == null) {
+            lblSubtotal.setText("0.00");
+            lblImpuestos.setText("0.00");
+            lblTotal.setText("0.00");
+            return;
+        }
 
+        Contrato contrato = new Contrato(clienteSeleccionado, espacioSeleccionado,
+                convertirALocalDate(txtFechaInicio.getDate()), convertirALocalDate(txtFechaFin.getDate()));
+
+        if (checkBox1.isSelected()) {
+            // no terminado!!
+        }
+
+        contrato.calcularCostos();
+
+        lblSubtotal.setText(String.format("%,.2f", contrato.getSubTotal()));
+        lblImpuestos.setText(String.format("%,.2f", contrato.getImpuestos()));
+        lblTotal.setText(String.format("%,.2f", contrato.getTotal()));
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,7 +121,7 @@ public class FrmContratos extends javax.swing.JInternalFrame {
         lblEspacioSeleccionado = new javax.swing.JLabel();
         txtIdCliente = new javax.swing.JTextField();
         lblServiciosAdicionales = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        checkBox1 = new javax.swing.JCheckBox();
         lblTituloTotal = new javax.swing.JLabel();
         lblTituloSubtotal = new javax.swing.JLabel();
         lblTituloImpuestos = new javax.swing.JLabel();
@@ -75,6 +134,14 @@ public class FrmContratos extends javax.swing.JInternalFrame {
         btnCancelar = new javax.swing.JButton();
         btnBuscarContrato = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        checkBox2 = new javax.swing.JCheckBox();
+        checkBox3 = new javax.swing.JCheckBox();
+        checkBox4 = new javax.swing.JCheckBox();
+        checkBox5 = new javax.swing.JCheckBox();
+        checkBox6 = new javax.swing.JCheckBox();
+        checkBox7 = new javax.swing.JCheckBox();
+        checkBox8 = new javax.swing.JCheckBox();
+        checkBox9 = new javax.swing.JCheckBox();
 
         lblContratos.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblContratos.setText("Contratos");
@@ -89,6 +156,7 @@ public class FrmContratos extends javax.swing.JInternalFrame {
 
         comboxEspacio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         comboxEspacio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pequeño ", "Mediano", "Grande" }));
+        comboxEspacio.addActionListener(this::comboxEspacioActionPerformed);
 
         btnBuscarCliente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnBuscarCliente.setText("Buscar Cliente");
@@ -118,7 +186,7 @@ public class FrmContratos extends javax.swing.JInternalFrame {
         lblServiciosAdicionales.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblServiciosAdicionales.setText("Servicios Adicionales");
 
-        jCheckBox1.setText("jCheckBox1");
+        checkBox1.setText("jCheckBox1");
 
         lblTituloTotal.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblTituloTotal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -159,6 +227,22 @@ public class FrmContratos extends javax.swing.JInternalFrame {
         btnLimpiar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnLimpiar.setText("Limpiar");
 
+        checkBox2.setText("jCheckBox1");
+
+        checkBox3.setText("jCheckBox1");
+
+        checkBox4.setText("jCheckBox1");
+
+        checkBox5.setText("jCheckBox1");
+
+        checkBox6.setText("jCheckBox1");
+
+        checkBox7.setText("jCheckBox1");
+
+        checkBox8.setText("jCheckBox1");
+
+        checkBox9.setText("jCheckBox1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -184,7 +268,24 @@ public class FrmContratos extends javax.swing.JInternalFrame {
                                         .addGap(141, 141, 141))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
-                                        .addComponent(jCheckBox1)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(checkBox4)
+                                            .addComponent(checkBox1)
+                                            .addComponent(checkBox7))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(checkBox3)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(checkBox2))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(checkBox5)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(checkBox6))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(checkBox8)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(checkBox9)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addComponent(txtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -250,8 +351,20 @@ public class FrmContratos extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(lblServiciosAdicionales)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(checkBox1)
+                            .addComponent(checkBox3)
+                            .addComponent(checkBox2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(checkBox4)
+                            .addComponent(checkBox5)
+                            .addComponent(checkBox6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(checkBox7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkBox8)
+                            .addComponent(checkBox9)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(comboxEspacio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -259,16 +372,16 @@ public class FrmContratos extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblFechaInicio)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                        .addComponent(txtFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblFechaFin)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblTituloTotal)
-                            .addComponent(lblTituloSubtotal)
-                            .addComponent(lblTituloImpuestos))))
+                        .addComponent(txtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTituloTotal)
+                    .addComponent(lblTituloSubtotal)
+                    .addComponent(lblTituloImpuestos))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblSubtotal)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -325,6 +438,10 @@ public class FrmContratos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
+    private void comboxEspacioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboxEspacioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboxEspacioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActivar;
@@ -334,8 +451,16 @@ public class FrmContratos extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCrear;
     private javax.swing.JButton btnFinalizar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JCheckBox checkBox1;
+    private javax.swing.JCheckBox checkBox2;
+    private javax.swing.JCheckBox checkBox3;
+    private javax.swing.JCheckBox checkBox4;
+    private javax.swing.JCheckBox checkBox5;
+    private javax.swing.JCheckBox checkBox6;
+    private javax.swing.JCheckBox checkBox7;
+    private javax.swing.JCheckBox checkBox8;
+    private javax.swing.JCheckBox checkBox9;
     private javax.swing.JComboBox<String> comboxEspacio;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel lblCliente;
     private javax.swing.JLabel lblClienteSeleccionado;
     private javax.swing.JLabel lblContratos;
