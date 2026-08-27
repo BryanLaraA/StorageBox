@@ -11,6 +11,7 @@ import java.util.ArrayList;
  * @author lenno
  */
 public class Controladorempleado {
+
     private ArrayList<Empleado> empleados;
 
     public Controladorempleado() {
@@ -30,16 +31,24 @@ public class Controladorempleado {
         return null;
     }
 
-    public boolean editar(String nombre, Puesto puesto, double salario) {
+    public boolean editar(String nombre, String puesto, Double nuevoSalario) {
+
         Empleado empleado = buscar(nombre);
 
-        if (empleado != null) {
-            empleado.setPuesto(puesto);
-            empleado.setSalario(salario);
-            return true;
+        if (empleado == null) {
+            return false;
         }
 
-        return false;
+        if (puesto != null && !puesto.trim().isEmpty()) {
+            empleado.getPuesto().setNombre(puesto);
+        }
+
+        if (nuevoSalario != null) {
+            empleado.setSalario(nuevoSalario);
+            empleado.getPuesto().setSalario(nuevoSalario);
+        }
+
+        return true;
     }
 
     public boolean eliminar(String nombre) {

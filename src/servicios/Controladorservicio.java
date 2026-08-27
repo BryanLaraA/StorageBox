@@ -40,35 +40,38 @@ public class Controladorservicio {
         return null;
     }
 
-    public boolean actualizar(Servicio servicioActualizado) {
+    public boolean actualizar(String nombre,String descripcion,Double precio) {
 
-        if (servicioActualizado == null) {
+        Servicio servicio = buscar(nombre);
+
+        if (servicio == null) {
             return false;
         }
 
+        if (descripcion != null
+                && !descripcion.trim().isEmpty()) {
+            servicio.setDescripcion(descripcion);
+        }
+
+        if (precio != null) {
+            servicio.setPrecio(precio);
+        }
+
+        return true;
+    }
+
+    public boolean eliminar(int codigo) {
+
         for (int i = 0; i < servicios.size(); i++) {
 
-            if (servicios.get(i).getNombre().equalsIgnoreCase(servicioActualizado.getNombre())) {
-                servicios.set(i, servicioActualizado);
+            if (servicios.get(i).getCodigo() == codigo) {
+
+                servicios.remove(i);
                 return true;
             }
         }
 
         return false;
-    }
-
-    public boolean eliminar(int codigo) {
-
-    for (int i = 0; i < servicios.size(); i++) {
-
-        if (servicios.get(i).getCodigo() == codigo) {
-
-            servicios.remove(i);
-            return true;
-        }
-    }
-
-    return false;
     }
 
     public ArrayList<Servicio> getServicios() {
