@@ -505,6 +505,10 @@ public class FrmContratos extends javax.swing.JInternalFrame {
                 FrmCliente menuCliente = new FrmCliente(controlCliente);
                 this.getDesktopPane().add(menuCliente);
                 menuCliente.setVisible(true);
+                try {
+                    menuCliente.setSelected(true);
+                } catch (java.beans.PropertyVetoException e) {
+                }
             }
             lblClienteSeleccionado.setText("Seleccione un cliente");
         } else {
