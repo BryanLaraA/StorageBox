@@ -44,6 +44,8 @@ public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablaEmpleado = new javax.swing.JTable();
         btnEliminar = new javax.swing.JButton();
+        batActualizar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -64,6 +66,14 @@ public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(this::btnEliminarActionPerformed);
 
+        batActualizar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        batActualizar.setText("Actualizar");
+        batActualizar.addActionListener(this::batActualizarActionPerformed);
+
+        btnBuscar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(this::btnBuscarActionPerformed);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -71,9 +81,14 @@ public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnEliminar)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnEliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(batActualizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBuscar))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -81,7 +96,10 @@ public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
                 .addGap(16, 16, 16)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                    .addComponent(batActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
@@ -151,6 +169,84 @@ public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void batActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_batActualizarActionPerformed
+        int fila = jTablaEmpleado.getSelectedRow();
+
+        if (fila == -1) {
+
+            JOptionPane.showMessageDialog(this,"Seleccione un empleado");
+
+            return;
+        }
+
+        String nombre
+                = jTablaEmpleado.getValueAt(fila, 1).toString();
+
+        String nuevoPuesto = JOptionPane.showInputDialog(this,"Nuevo puesto:");
+
+        if (nuevoPuesto == null || nuevoPuesto.trim().isEmpty()) {
+            return;
+        }
+
+        String salarioTexto = JOptionPane.showInputDialog(this,"Nuevo salario:");
+
+        try {
+
+            double salario = Double.parseDouble(salarioTexto);
+
+            administracionempleados.Puesto puesto = new administracionempleados.Puesto();
+
+            puesto.setNombre(nuevoPuesto);
+            puesto.setSalario(salario);
+
+            if (controladorem.editar(nombre,puesto,salario)) {
+
+                JOptionPane.showMessageDialog(this,"Empleado actualizado");
+
+                cargarEmpleados();
+
+            } else {
+
+                JOptionPane.showMessageDialog(this,"No se pudo actualizar");
+            }
+
+        } catch (NumberFormatException e) {
+
+            JOptionPane.showMessageDialog(this,"Salario inválido");
+        }
+
+    }//GEN-LAST:event_batActualizarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        String nombre = JOptionPane.showInputDialog(this, "Ingrese el nombre del empleado:");
+
+        if (nombre == null || nombre.trim().isEmpty()) {
+            return;
+        }
+
+        Empleado empleado = controladorem.buscar(nombre);
+
+        DefaultTableModel modelo = (DefaultTableModel) jTablaEmpleado.getModel();
+
+        modelo.setRowCount(0);
+
+        if (empleado != null) {
+
+            modelo.addRow(new Object[]{
+                empleado.getIdPersona(),
+                empleado.getNombre(),
+                empleado.getSalario(),
+                empleado.getPuesto().getNombre()
+            });
+
+        } else {
+
+            JOptionPane.showMessageDialog(this, "Empleado no encontrado");
+
+            cargarEmpleados();
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
     private void cargarEmpleados() {
 
         DefaultTableModel modelo
@@ -171,6 +267,8 @@ public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton batActualizar;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
