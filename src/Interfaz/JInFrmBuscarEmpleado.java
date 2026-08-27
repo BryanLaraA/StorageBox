@@ -44,7 +44,7 @@ public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablaEmpleado = new javax.swing.JTable();
         btnEliminar = new javax.swing.JButton();
-        batActualizar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -66,9 +66,9 @@ public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(this::btnEliminarActionPerformed);
 
-        batActualizar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        batActualizar.setText("Actualizar");
-        batActualizar.addActionListener(this::batActualizarActionPerformed);
+        btnActualizar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(this::btnActualizarActionPerformed);
 
         btnBuscar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnBuscar.setText("Buscar");
@@ -84,7 +84,7 @@ public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(batActualizar)
+                        .addComponent(btnActualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnBuscar))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -98,7 +98,7 @@ public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                    .addComponent(batActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
@@ -169,7 +169,7 @@ public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void batActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_batActualizarActionPerformed
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         int fila = jTablaEmpleado.getSelectedRow();
 
         if (fila == -1) {
@@ -215,7 +215,7 @@ public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this,"Salario inválido");
         }
 
-    }//GEN-LAST:event_batActualizarActionPerformed
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String nombre = JOptionPane.showInputDialog(this, "Ingrese el nombre del empleado:");
@@ -267,7 +267,7 @@ public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton batActualizar;
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JLabel jLabel1;

@@ -44,6 +44,8 @@ public class JInlFrmBuscarServicio extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablaServicio = new javax.swing.JTable();
         btnEliminar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("                 Buscador de Servicios");
@@ -65,30 +67,45 @@ public class JInlFrmBuscarServicio extends javax.swing.JInternalFrame {
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(this::btnEliminarActionPerformed);
 
+        btnActualizar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(this::btnActualizarActionPerformed);
+
+        btnBuscar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(this::btnBuscarActionPerformed);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 787, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(144, 144, 144))
+            .addComponent(jScrollPane1)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnEliminar)
+                .addGap(18, 18, 18)
+                .addComponent(btnActualizar)
+                .addGap(18, 18, 18)
+                .addComponent(btnBuscar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(78, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEliminar)
+                    .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBuscar))
+                .addGap(21, 21, 21))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -153,8 +170,84 @@ public class JInlFrmBuscarServicio extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        int fila = jTablaServicio.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this,"Seleccione un servicio");
+            return;
+        }
+
+        String nombre = jTablaServicio.getValueAt(fila, 1).toString();
+
+        Servicio servicio = controladorservicio.buscar(nombre);
+
+        if (servicio == null) {
+            JOptionPane.showMessageDialog(this,"Servicio no encontrado");
+            return;
+        }
+
+        String nuevaDescripcion = JOptionPane.showInputDialog(this,"Nueva descripción:",servicio.getDescripcion());
+
+        if (nuevaDescripcion == null) {
+            return;
+        }
+
+        String nuevoPrecioTexto = JOptionPane.showInputDialog(this,"Nuevo precio:",servicio.getPrecio());
+
+        try {
+
+            double nuevoPrecio = Double.parseDouble(nuevoPrecioTexto);
+
+            servicio.setDescripcion(nuevaDescripcion);
+            servicio.setPrecio(nuevoPrecio);
+
+            controladorservicio.actualizar(servicio);
+
+            JOptionPane.showMessageDialog(this,"Servicio actualizado correctamente");
+
+            cargarServicios();
+
+        } catch (NumberFormatException e) {
+
+            JOptionPane.showMessageDialog(this,"Precio inválido");
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        String nombre = JOptionPane.showInputDialog(this, "Ingrese el nombre del servicio:");
+
+        if (nombre == null || nombre.trim().isEmpty()) {
+            return;
+        }
+
+        Servicio servicio = controladorservicio.buscar(nombre);
+
+        DefaultTableModel modelo = (DefaultTableModel) jTablaServicio.getModel();
+
+        modelo.setRowCount(0);
+
+        if (servicio != null) {
+
+            modelo.addRow(new Object[]{
+                servicio.getCodigo(),
+                servicio.getNombre(),
+                servicio.getDescripcion(),
+                servicio.getPrecio()
+            });
+
+        } else {
+
+            JOptionPane.showMessageDialog(this, "Servicio no encontrado");
+
+            cargarServicios();
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
