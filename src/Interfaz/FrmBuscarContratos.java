@@ -4,17 +4,25 @@
  */
 package Interfaz;
 
+import contratos.Contrato;
+import contratos.controlContrato;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author andre
  */
 public class FrmBuscarContratos extends javax.swing.JInternalFrame {
 
+    private controlContrato controlContrato;
+
     /**
      * Creates new form FrmBuscarContratos
      */
     public FrmBuscarContratos() {
         initComponents();
+        this.controlContrato = controlContrato;
     }
 
     /**
@@ -83,6 +91,7 @@ public class FrmBuscarContratos extends javax.swing.JInternalFrame {
 
         btnBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(this::btnBuscarActionPerformed);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -99,9 +108,11 @@ public class FrmBuscarContratos extends javax.swing.JInternalFrame {
 
         btnAceptar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(this::btnAceptarActionPerformed);
 
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(this::btnCancelarActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -172,6 +183,57 @@ public class FrmBuscarContratos extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+
+        modelo.setRowCount(0);
+
+        for (Contrato contrato : controlContrato.getContratos()) {
+
+            boolean coincide = true;
+
+            if (!txtNumero.getText().trim().isEmpty()) {
+                coincide &= String.valueOf(contrato.getNumeroContrato()).contains(txtNumero.getText().trim());
+            }
+
+            if (!txtCliente.getText().trim().isEmpty()) {
+                coincide &= contrato.getCliente().getNombre().toLowerCase().contains(txtCliente.getText().trim().toLowerCase());
+            }
+
+            if (!txtEstado.getText().trim().isEmpty()) {
+                coincide &= contrato.getEstado().toString().toLowerCase().contains(txtEstado.getText().trim().toLowerCase());
+            }
+
+            if (coincide) {
+
+                modelo.addRow(new Object[]{
+                    contrato.getNumeroContrato(),
+                    contrato.getCliente().getNombre(),
+                    contrato.getEspacio().getNumero(),
+                    contrato.getFechaInicio(),
+                    contrato.getFechaFin(),
+                    contrato.getEstado(),
+                    contrato.getTotal()
+                });
+            }
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        int fila = jTable1.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione un contrato.");
+            return;
+        }
+
+        int numeroContrato = Integer.parseInt(jTable1.getValueAt(fila, 0).toString());
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
