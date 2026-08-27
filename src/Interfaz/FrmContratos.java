@@ -9,6 +9,7 @@ import espacios.Espacio;
 import espacios.TipoEspacio;
 import excepciones.EstadoInvalidoException;
 import java.awt.event.ItemListener;
+import java.beans.PropertyVetoException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,6 +17,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import servicios.Controladorservicio;
 import servicios.Servicio;
+import excepciones.FechaInvalidaException;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
@@ -45,7 +47,9 @@ public class FrmContratos extends javax.swing.JInternalFrame {
         this.controlCliente = controlCliente;
         this.controlEspacio = controlEspacio;
         this.controlServicio = controlServicio;
-        
+        cargarCheckboxesServicios();
+        txtFechaInicio.addPropertyChangeListener("date", evt -> updateEspacioDisponible());
+        txtFechaFin.addPropertyChangeListener("date", evt -> updateEspacioDisponible());
         addInternalFrameListener(new javax.swing.event.InternalFrameAdapter() {
             @Override
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent e) {
@@ -84,7 +88,7 @@ public class FrmContratos extends javax.swing.JInternalFrame {
     }
     private ArrayList<Servicio> obtenerServiciosSeleccionados() {
         ArrayList<Servicio> seleccionados = new ArrayList<>();
-        for (javax.swing.JCheckBox cb : checkboxesServicios) {
+        for (JCheckBox cb : checkboxesServicios) {
             Servicio s = (Servicio) cb.getClientProperty("servicio");
             if (s != null && cb.isSelected()) {
                 seleccionados.add(s);
@@ -143,24 +147,24 @@ public class FrmContratos extends javax.swing.JInternalFrame {
     lblTotal.setText(String.format("%,.2f", costos[2]));
     }
     public void cargarContrato(Contrato contrato) {
-    contratoCargado = contrato;
-    clienteSeleccionado = contrato.getCliente();
-    espacioSeleccionado = contrato.getEspacio();
+        contratoCargado = contrato;
+        clienteSeleccionado = contrato.getCliente();
+        espacioSeleccionado = contrato.getEspacio();
 
-    lblClienteSeleccionado.setText(contrato.getCliente().getNombre());
-    lblEspacioSeleccionado.setText("Espacio #" + contrato.getEspacio().getNumero());
-    txtFechaInicio.setDate(java.sql.Date.valueOf(contrato.getFechaInicio()));
-    txtFechaFin.setDate(java.sql.Date.valueOf(contrato.getFechaFin()));
+        lblClienteSeleccionado.setText(contrato.getCliente().getNombre());
+        lblEspacioSeleccionado.setText("Espacio #" + contrato.getEspacio().getNumero());
+        txtFechaInicio.setDate(java.sql.Date.valueOf(contrato.getFechaInicio()));
+        txtFechaFin.setDate(java.sql.Date.valueOf(contrato.getFechaFin()));
 
-    for (javax.swing.JCheckBox cb : checkboxesServicios) {
-        Servicio s = (Servicio) cb.getClientProperty("servicio");
-        cb.setSelected(s != null && contrato.getServiciosAdicionales().contains(s));
+        for (javax.swing.JCheckBox cb : checkboxesServicios) {
+            Servicio s = (Servicio) cb.getClientProperty("servicio");
+            cb.setSelected(s != null && contrato.getServiciosAdicionales().contains(s));
+        }
+
+        lblSubtotal.setText(String.format("%,.2f", contrato.getSubTotal()));
+        lblImpuestos.setText(String.format("%,.2f", contrato.getImpuestos()));
+        lblTotal.setText(String.format("%,.2f", contrato.getTotal()));
     }
-
-    lblSubtotal.setText(String.format("%,.2f", contrato.getSubTotal()));
-    lblImpuestos.setText(String.format("%,.2f", contrato.getImpuestos()));
-    lblTotal.setText(String.format("%,.2f", contrato.getTotal()));
-}
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -244,6 +248,7 @@ public class FrmContratos extends javax.swing.JInternalFrame {
         lblEspacioSeleccionado.setText("Seleccione un espacio");
 
         txtIdCliente.setText("Digite el ID");
+        txtIdCliente.addActionListener(this::txtIdClienteActionPerformed);
 
         lblServiciosAdicionales.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblServiciosAdicionales.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -294,6 +299,7 @@ public class FrmContratos extends javax.swing.JInternalFrame {
 
         btnLimpiar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(this::btnLimpiarActionPerformed);
 
         checkBox2.setText("jCheckBox1");
 
@@ -507,11 +513,18 @@ public class FrmContratos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
     private void comboxEspacioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboxEspacioActionPerformed
-        // TODO add your handling code here:
+        updateEspacioDisponible();
     }//GEN-LAST:event_comboxEspacioActionPerformed
 
     private void btnBuscarContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarContratoActionPerformed
-        
+        FrmBuscarContratos buscar = new FrmBuscarContratos(controlContrato, this);
+        this.getDesktopPane().add(buscar);
+        buscar.setVisible(true);
+        try {
+            buscar.setSelected(true);
+        } catch (PropertyVetoException e) {
+            JOptionPane.showMessageDialog(this, "Contrato no pudo ser seleccionado.");
+        }
     }//GEN-LAST:event_btnBuscarContratoActionPerformed
 
     private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed
@@ -554,8 +567,52 @@ public class FrmContratos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        // TODO add your handling code here:
+        if (clienteSeleccionado == null) {
+            JOptionPane.showMessageDialog(this, "Valide un cliente antes de continuar.");
+            return;
+        }
+        if (espacioSeleccionado == null) {
+            JOptionPane.showMessageDialog(this, "No hay espacio disponible para esas fechas.");
+            return;
+        }
+        if (txtFechaInicio.getDate() == null || txtFechaFin.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Seleccione las fechas del contrato.");
+            return;
+        }
+
+        try {
+            Contrato nuevo = controlContrato.crearContrato(clienteSeleccionado, espacioSeleccionado,
+                    convertirALocalDate(txtFechaInicio.getDate()),
+                    convertirALocalDate(txtFechaFin.getDate()),
+                    obtenerServiciosSeleccionados());
+
+            JOptionPane.showMessageDialog(this, "Contrato #" + nuevo.getNumeroContrato() + " creado.");
+            contratoCargado = nuevo; 
+        } catch (FechaInvalidaException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnCrearActionPerformed
+
+    private void txtIdClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdClienteActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        contratoCargado = null;
+        clienteSeleccionado = null;
+        espacioSeleccionado = null;
+        txtIdCliente.setText("");
+        lblClienteSeleccionado.setText("Seleccione un cliente");
+        lblEspacioSeleccionado.setText("Seleccione un espacio");
+        txtFechaInicio.setDate(null);
+        txtFechaFin.setDate(null);
+        for (JCheckBox cb : checkboxesServicios) {
+            cb.setSelected(false);
+        }
+        lblSubtotal.setText("0.00");
+        lblImpuestos.setText("0.00");
+        lblTotal.setText("0.00");
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
