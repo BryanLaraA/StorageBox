@@ -6,8 +6,6 @@ package Interfaz;
 
 import clientes.Cliente;
 import clientes.ControladorCliente;
-import espacios.FrmEspacio;
-import espacios.FrmFiltradoBuscar;
 import Interfaz.JInFrmServicio;
 import administracionempleados.Controladorempleado;
 import servicios.Controladorservicio;
