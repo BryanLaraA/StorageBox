@@ -28,9 +28,9 @@
               <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="btnBuscarCliente5" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnBuscarContrato" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnBuscarCliente6" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnLimpiar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
@@ -38,7 +38,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="lblCliente1" max="32767" attributes="0"/>
+                                      <Component id="lblServiciosAdicionales" max="32767" attributes="0"/>
                                       <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
@@ -57,25 +57,25 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lblTituloImpuestos" max="32767" attributes="0"/>
-                                  <Component id="Impuestos" max="32767" attributes="0"/>
+                                  <Component id="lblImpuestos" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="lblTituloTotal" alignment="1" max="32767" attributes="0"/>
                                   <Component id="txtFechaFin" alignment="1" pref="144" max="32767" attributes="0"/>
-                                  <Component id="Impuestos1" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="lblTotal" alignment="1" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="btnBuscarCliente2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnCrear" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnBuscarCliente1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnActivar" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnBuscarCliente3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnFinalizar" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnBuscarCliente4" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
@@ -116,9 +116,9 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lblContratos" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblEspacio" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblCliente" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -129,7 +129,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblClienteSeleccionado" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="lblCliente1" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblServiciosAdicionales" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
@@ -157,21 +157,21 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblSubtotal" min="-2" max="-2" attributes="0"/>
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="Impuestos" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="Impuestos1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblImpuestos" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblTotal" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnBuscarCliente2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnBuscarCliente1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnBuscarCliente3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnBuscarCliente4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCrear" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnActivar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnFinalizar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnBuscarCliente5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnBuscarCliente6" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnBuscarContrato" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnLimpiar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
           </Group>
@@ -229,6 +229,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Buscar Cliente"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarClienteActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblClienteSeleccionado">
       <Properties>
@@ -283,7 +286,7 @@
         <Property name="text" type="java.lang.String" value="Digite el ID"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblCliente1">
+    <Component class="javax.swing.JLabel" name="lblServiciosAdicionales">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
@@ -332,7 +335,7 @@
         <Property name="text" type="java.lang.String" value="0.00"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="Impuestos">
+    <Component class="javax.swing.JLabel" name="lblImpuestos">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
@@ -340,7 +343,7 @@
         <Property name="text" type="java.lang.String" value="0.00"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="Impuestos1">
+    <Component class="javax.swing.JLabel" name="lblTotal">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
@@ -348,7 +351,7 @@
         <Property name="text" type="java.lang.String" value="0.00"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnBuscarCliente1">
+    <Component class="javax.swing.JButton" name="btnActivar">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
@@ -356,7 +359,7 @@
         <Property name="text" type="java.lang.String" value="Activar"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnBuscarCliente2">
+    <Component class="javax.swing.JButton" name="btnCrear">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
@@ -364,7 +367,7 @@
         <Property name="text" type="java.lang.String" value="Crear"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnBuscarCliente3">
+    <Component class="javax.swing.JButton" name="btnFinalizar">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
@@ -372,7 +375,7 @@
         <Property name="text" type="java.lang.String" value="Finalizar"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnBuscarCliente4">
+    <Component class="javax.swing.JButton" name="btnCancelar">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
@@ -380,7 +383,7 @@
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnBuscarCliente5">
+    <Component class="javax.swing.JButton" name="btnBuscarContrato">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
@@ -388,7 +391,7 @@
         <Property name="text" type="java.lang.String" value="Buscar Contrato"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnBuscarCliente6">
+    <Component class="javax.swing.JButton" name="btnLimpiar">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
