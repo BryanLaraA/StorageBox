@@ -67,6 +67,8 @@ public class FrmStorageBox extends javax.swing.JFrame {
         menuEmpleado = new javax.swing.JMenu();
         itmEmpleado = new javax.swing.JMenuItem();
         itmBuscarEmpleado = new javax.swing.JMenuItem();
+        menuInicio = new javax.swing.JMenu();
+        itmSalir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -147,6 +149,14 @@ public class FrmStorageBox extends javax.swing.JFrame {
         menuEmpleado.add(itmBuscarEmpleado);
 
         jMenuBar1.add(menuEmpleado);
+
+        menuInicio.setText("Inicio");
+
+        itmSalir.setText("Salir");
+        itmSalir.addActionListener(this::itmSalirActionPerformed);
+        menuInicio.add(itmSalir);
+
+        jMenuBar1.add(menuInicio);
 
         setJMenuBar(jMenuBar1);
 
@@ -279,6 +289,16 @@ public class FrmStorageBox extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_itmContratoActionPerformed
 
+    private void itmSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSalirActionPerformed
+        int confirmacion = JOptionPane.showConfirmDialog(this,
+            "¿Desea salir del sistema?", "Confirmar salida",
+            JOptionPane.YES_NO_OPTION);
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_itmSalirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -316,10 +336,12 @@ public class FrmStorageBox extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmContrato;
     private javax.swing.JMenuItem itmEmpleado;
     private javax.swing.JMenuItem itmEspacio;
+    private javax.swing.JMenuItem itmSalir;
     private javax.swing.JMenuItem itmServicio;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu menuContrato;
     private javax.swing.JMenu menuEmpleado;
+    private javax.swing.JMenu menuInicio;
     // End of variables declaration//GEN-END:variables
 }
