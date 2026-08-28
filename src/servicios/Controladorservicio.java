@@ -5,6 +5,7 @@
 package servicios;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -13,14 +14,20 @@ import java.util.ArrayList;
 public class Controladorservicio {
 
     private ArrayList<Servicio> servicios;
+    private HashMap<String, Servicio> indiceServicios;
 
     public Controladorservicio() {
         servicios = new ArrayList<>();
+        indiceServicios = new HashMap<>();
     }
 
     public void guardar(Servicio servicio) {
+
         if (servicio != null) {
+
             servicios.add(servicio);
+
+            indiceServicios.put(servicio.getNombre().toLowerCase(),servicio);
         }
     }
 
@@ -30,17 +37,10 @@ public class Controladorservicio {
             return null;
         }
 
-        for (Servicio servicio : servicios) {
-
-            if (servicio.getNombre().equalsIgnoreCase(nombre.trim())) {
-                return servicio;
-            }
-        }
-
-        return null;
+        return indiceServicios.get(nombre.trim().toLowerCase());
     }
 
-    public boolean actualizar(String nombre,String descripcion,Double precio) {
+    public boolean actualizar(String nombre, String descripcion, Double precio) {
 
         Servicio servicio = buscar(nombre);
 
@@ -48,8 +48,7 @@ public class Controladorservicio {
             return false;
         }
 
-        if (descripcion != null
-                && !descripcion.trim().isEmpty()) {
+        if (descripcion != null && !descripcion.trim().isEmpty()) {
             servicio.setDescripcion(descripcion);
         }
 
