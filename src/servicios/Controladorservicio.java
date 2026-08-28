@@ -15,47 +15,42 @@ public class Controladorservicio {
 
     private ArrayList<Servicio> servicios;
     private HashMap<String, Servicio> indiceServicios;
+    private int siguiente;
 
+    
     public Controladorservicio() {
         servicios = new ArrayList<>();
         indiceServicios = new HashMap<>();
+        siguiente = 1;
     }
 
     public void guardar(Servicio servicio) {
-
         if (servicio != null) {
-
+            servicio.setCodigo(siguiente);
+            siguiente++;
             servicios.add(servicio);
-
             indiceServicios.put(servicio.getNombre().toLowerCase(), servicio);
         }
     }
 
     public Servicio buscar(String nombre) {
-
         if (nombre == null || nombre.trim().isEmpty()) {
             return null;
         }
-
         return indiceServicios.get(nombre.trim().toLowerCase());
     }
 
     public boolean actualizar(String nombre, String descripcion, Double precio) {
-
         Servicio servicio = buscar(nombre);
-
         if (servicio == null) {
             return false;
         }
-
         if (descripcion != null && !descripcion.trim().isEmpty()) {
             servicio.setDescripcion(descripcion);
         }
-
         if (precio != null) {
             servicio.setPrecio(precio);
         }
-
         return true;
     }
 
@@ -72,5 +67,24 @@ public class Controladorservicio {
 
     public ArrayList<Servicio> getServicios() {
         return servicios;
+    }
+
+    public ArrayList<Servicio> filtrar(String nombre, Double precioMin, Double precioMax) {
+        ArrayList<Servicio> resultado = new ArrayList<>();
+        String nombreFiltro = (nombre == null) ? "" : nombre.trim().toLowerCase();
+
+        for (Servicio servicio : servicios) {
+            if (!nombreFiltro.isEmpty() && !servicio.getNombre().toLowerCase().contains(nombreFiltro)) {
+                continue;
+            }
+            if (precioMin != null && precioMin >= 0 && servicio.getPrecio() < precioMin) {
+                continue;
+            }
+            if (precioMax != null && precioMax >= 0 && servicio.getPrecio() > precioMax) {
+                continue;
+            }
+            resultado.add(servicio);
+        }
+        return resultado;
     }
 }

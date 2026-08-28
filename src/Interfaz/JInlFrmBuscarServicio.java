@@ -171,7 +171,6 @@ public class JInlFrmBuscarServicio extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cargarServicios() {
-
         DefaultTableModel modelo = (DefaultTableModel) jTablaServicio.getModel();
 
         modelo.setRowCount(0);
@@ -199,13 +198,9 @@ public class JInlFrmBuscarServicio extends javax.swing.JInternalFrame {
         );
 
         if (opcion == JOptionPane.YES_OPTION) {
-
             int codigo = Integer.parseInt(
-                    jTablaServicio.getValueAt(fila, 0).toString()
-            );
-
+            jTablaServicio.getValueAt(fila, 0).toString());
             controladorservicio.eliminar(codigo);
-
             JOptionPane.showMessageDialog(this, "Servicio eliminado");
 
             cargarServicios();
@@ -229,11 +224,9 @@ public class JInlFrmBuscarServicio extends javax.swing.JInternalFrame {
             return;
         }
 
-        String nuevaDescripcion = JOptionPane.showInputDialog(this,"Nueva descripción:",servicio.getDescripcion()
-        );
+        String nuevaDescripcion = JOptionPane.showInputDialog(this,"Nueva descripción:",servicio.getDescripcion());
 
         String nuevoPrecioTexto = JOptionPane.showInputDialog(this,"Nuevo precio:",servicio.getPrecio());
-
         String descripcionFinal = null;
 
         if (nuevaDescripcion != null && !nuevaDescripcion.trim().isEmpty()) {
@@ -260,32 +253,59 @@ public class JInlFrmBuscarServicio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        String nombre = JOptionPane.showInputDialog(this, "Ingrese el nombre del servicio:");
+        javax.swing.JTextField campoNombre = new javax.swing.JTextField();
+        javax.swing.JTextField campoPrecioMin = new javax.swing.JTextField();
+        javax.swing.JTextField campoPrecioMax = new javax.swing.JTextField();
 
-        if (nombre == null || nombre.trim().isEmpty()) {
+        javax.swing.JPanel panelFiltro = new javax.swing.JPanel(new java.awt.GridLayout(3, 2, 5, 5));
+        panelFiltro.add(new javax.swing.JLabel("Nombre contiene:"));
+        panelFiltro.add(campoNombre);
+        panelFiltro.add(new javax.swing.JLabel("Precio mínimo:"));
+        panelFiltro.add(campoPrecioMin);
+        panelFiltro.add(new javax.swing.JLabel("Precio máximo:"));
+        panelFiltro.add(campoPrecioMax);
+
+        int opcion = JOptionPane.showConfirmDialog(this, panelFiltro,"Filtrar servicio",
+            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (opcion != JOptionPane.OK_OPTION) {
             return;
         }
 
-        Servicio servicio = controladorservicio.buscar(nombre);
+        String nombre = campoNombre.getText().trim();
+
+        Double precioMin = null;
+        Double precioMax = null;
+
+        try {
+            if (!campoPrecioMin.getText().trim().isEmpty()) {
+                precioMin = Double.valueOf(campoPrecioMin.getText().trim());
+            }
+            if (!campoPrecioMax.getText().trim().isEmpty()) {
+                precioMax = Double.valueOf(campoPrecioMax.getText().trim());
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El precio mínimo y máximo deben ser numéricos");
+            return;
+        }
+
+        java.util.ArrayList<Servicio> resultado = controladorservicio.filtrar(nombre, precioMin, precioMax);
 
         DefaultTableModel modelo = (DefaultTableModel) jTablaServicio.getModel();
 
         modelo.setRowCount(0);
 
-        if (servicio != null) {
-
+        for (Servicio servicio : resultado) {
             modelo.addRow(new Object[]{
                 servicio.getCodigo(),
                 servicio.getNombre(),
                 servicio.getDescripcion(),
                 servicio.getPrecio()
             });
+        }
 
-        } else {
-
-            JOptionPane.showMessageDialog(this, "Servicio no encontrado");
-
-            cargarServicios();
+        if (resultado.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ningún servicio coincide con el filtro");
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
