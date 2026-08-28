@@ -83,7 +83,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButton1" min="-2" pref="89" max="-2" attributes="0"/>
+                          <Component id="btnEliminar" min="-2" pref="89" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnGuardar" min="-2" pref="89" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
@@ -100,7 +100,7 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="txtIdentificacion" alignment="1" pref="215" max="32767" attributes="0"/>
                               <Component id="jLabel7" alignment="1" pref="215" max="32767" attributes="0"/>
-                              <Component id="jTextField1" alignment="1" max="32767" attributes="0"/>
+                              <Component id="txtEdad" alignment="1" max="32767" attributes="0"/>
                               <Component id="jLabel1" alignment="1" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -120,11 +120,9 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jTextField1" pref="49" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="DateChooser" pref="49" max="32767" attributes="0"/>
-                          <Component id="txtNombre" pref="49" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="txtEdad" pref="49" max="32767" attributes="0"/>
+                      <Component id="DateChooser" pref="49" max="32767" attributes="0"/>
+                      <Component id="txtNombre" pref="49" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="17" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -142,7 +140,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton1" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="btnEliminar" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                       <Component id="btnGuardar" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                       <Component id="btnDeshacer" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                       <Component id="btnBuscar" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
@@ -179,7 +177,7 @@
             <Property name="text" type="java.lang.String" value="Correo electronico"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="btnEliminar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Eliminar"/>
           </Properties>
@@ -259,9 +257,9 @@
             <Property name="text" type="java.lang.String" value="Identificacion"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="txtEdad">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtEdadActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">

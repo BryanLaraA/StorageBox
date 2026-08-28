@@ -12,6 +12,8 @@ import java.awt.Image;
 import java.time.LocalDate;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import java.util.ArrayList;
+import excepciones.ClienteConContratoExeption;
 
 /**
  *
@@ -23,11 +25,19 @@ public class FrmCliente extends javax.swing.JInternalFrame {
 
 public FrmCliente(ControladorCliente controladorcliente) {
     initComponents();
-        this.controladorcliente = controladorcliente;
+       this.controladorcliente = controladorcliente;
+        setClosable(true);
+        setMaximizable(true);
+        setIconifiable(true);
+        setResizable(true);
         ImageIcon icono = new ImageIcon(getClass().getResource("/clientes/icons/Usuario.png"));
         Image imagen = icono.getImage();
         Image imagenEscalada = imagen.getScaledInstance(138, 135, Image.SCALE_SMOOTH);
         lblImagen.setIcon(new ImageIcon(imagenEscalada));
+        txtEdad.setEditable(false);
+        DateChooser.addPropertyChangeListener("date", evt -> actualizarEdad());
+        
+        
 }
 
  public void cargarCliente(Cliente cliente) {
@@ -38,6 +48,8 @@ public FrmCliente(ControladorCliente controladorcliente) {
         txtTelefono.setText(cliente.getTelefono());
         txtCorreo.setText(cliente.getCorreoElectronico());
         DateChooser.setDate(java.sql.Date.valueOf(cliente.getFechaNacimiento()));
+        txtEdad.setText(String.valueOf(cliente.calcularEdad()));
+        
  }
 
     /**
@@ -54,7 +66,7 @@ public FrmCliente(ControladorCliente controladorcliente) {
         txtTelefono = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         btnDeshacer = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
@@ -64,7 +76,7 @@ public FrmCliente(ControladorCliente controladorcliente) {
         DateChooser = new com.toedter.calendar.JDateChooser();
         txtIdentificacion = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtEdad = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -83,7 +95,7 @@ public FrmCliente(ControladorCliente controladorcliente) {
         jLabel3.setForeground(new java.awt.Color(19, 27, 55));
         jLabel3.setText("Correo electronico");
 
-        jButton1.setText("Eliminar");
+        btnEliminar.setText("Eliminar");
 
         btnDeshacer.setText("Desahacer");
         btnDeshacer.addActionListener(this::btnDeshacerActionPerformed);
@@ -112,7 +124,7 @@ public FrmCliente(ControladorCliente controladorcliente) {
         jLabel7.setForeground(new java.awt.Color(19, 27, 55));
         jLabel7.setText("Identificacion");
 
-        jTextField1.addActionListener(this::jTextField1ActionPerformed);
+        txtEdad.addActionListener(this::txtEdadActionPerformed);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(19, 21, 51));
@@ -136,7 +148,7 @@ public FrmCliente(ControladorCliente controladorcliente) {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(19, 19, 19))
@@ -151,7 +163,7 @@ public FrmCliente(ControladorCliente controladorcliente) {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtIdentificacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtEdad, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
@@ -165,10 +177,9 @@ public FrmCliente(ControladorCliente controladorcliente) {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(DateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)))
+                    .addComponent(txtEdad, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                    .addComponent(DateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -182,7 +193,7 @@ public FrmCliente(ControladorCliente controladorcliente) {
                     .addComponent(txtIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDeshacer, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -325,10 +336,27 @@ public FrmCliente(ControladorCliente controladorcliente) {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCorreoActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEdadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtEdadActionPerformed
     
+    private void actualizarEdad() {
+    java.util.Date fecha = DateChooser.getDate();
+    if (fecha == null) {
+        txtEdad.setText("");
+        return;
+    }
+    LocalDate fechaNacimiento = fecha.toInstant()
+            .atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+
+    if (fechaNacimiento.isAfter(LocalDate.now())) {
+        txtEdad.setText(""); // fecha inválida, no mostramos edad negativa
+        return;
+    }
+
+    int edad = java.time.Period.between(fechaNacimiento, LocalDate.now()).getYears();
+    txtEdad.setText(String.valueOf(edad));
+}
      private void limpiarCampos() {
         clienteEnEdicion = null;
         txtIdentificacion.setText("");
@@ -337,14 +365,15 @@ public FrmCliente(ControladorCliente controladorcliente) {
         txtTelefono.setText("");
         DateChooser.setDate(null);
         txtCorreo.setText("");
+        txtEdad.setText("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser DateChooser;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnDeshacer;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -354,9 +383,9 @@ public FrmCliente(ControladorCliente controladorcliente) {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblImagen;
     private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtEdad;
     private javax.swing.JTextField txtIdentificacion;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;

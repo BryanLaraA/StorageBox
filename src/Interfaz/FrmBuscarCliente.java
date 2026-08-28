@@ -25,7 +25,7 @@ public class FrmBuscarCliente extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setIconifiable(true);
         setResizable(true);
-        cargarClientes();
+        cargarClientes(controladorcliente.getClientes());
     }
 
     /**
@@ -40,111 +40,155 @@ public class FrmBuscarCliente extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        brnActualizar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnAceptar = new javax.swing.JButton();
+        flIdentificacion = new javax.swing.JTextField();
+        flNombre = new javax.swing.JTextField();
+        btnFiltrar = new javax.swing.JButton();
+        btnLimpiarFiltro = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nombre Completo", "Telefono", "Correo Electronico"
+                "ID", "Nombre Completo", "Telefono", "Edad", "Correo Electronico"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 132, 838, 265));
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Buscar Cliente");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(247, 6, 333, -1));
 
-        brnActualizar.setText("Actualizar");
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(this::btnCancelarActionPerformed);
+        getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 409, 90, 50));
 
-        btnEliminar.setText("Eliminar");
-        btnEliminar.addActionListener(this::btnEliminarActionPerformed);
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(this::btnAceptarActionPerformed);
+        getContentPane().add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 409, 90, 50));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(brnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(247, 247, 247)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(257, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(brnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        flIdentificacion.addActionListener(this::flIdentificacionActionPerformed);
+        getContentPane().add(flIdentificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 97, 120, -1));
+        getContentPane().add(flNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(222, 97, 120, -1));
+
+        btnFiltrar.setText("Filtrar");
+        btnFiltrar.addActionListener(this::btnFiltrarActionPerformed);
+        getContentPane().add(btnFiltrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(633, 97, -1, -1));
+
+        btnLimpiarFiltro.setText("Limpiar");
+        btnLimpiarFiltro.addActionListener(this::btnLimpiarFiltroActionPerformed);
+        getContentPane().add(btnLimpiarFiltro, new org.netbeans.lib.awtextra.AbsoluteConstraints(739, 97, -1, -1));
+
+        jLabel2.setText("Nombre");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 75, 71, -1));
+
+        jLabel3.setText("Identificacion");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 79, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         int filaSeleccionada = jTable1.getSelectedRow();
 
         if (filaSeleccionada == -1) {
-            JOptionPane.showMessageDialog(this, "Seleccioná un cliente de la tabla");
+            JOptionPane.showMessageDialog(this, "Seleccioná un cliente de la tabla.");
             return;
         }
 
         int id = (int) jTable1.getValueAt(filaSeleccionada, 0);
+        Cliente cliente = controladorcliente.buscarPorId(id);
 
-        int confirmacion = JOptionPane.showConfirmDialog(this,
-            "¿Seguro que querés eliminar este cliente?", "Confirmar",
-            JOptionPane.YES_NO_OPTION);
-
-        if (confirmacion != JOptionPane.YES_OPTION) {
+        if (cliente == null) {
+            JOptionPane.showMessageDialog(this, "No se pudo cargar el cliente seleccionado.");
             return;
         }
 
+        FrmCliente frmCliente = new FrmCliente(controladorcliente);
+        frmCliente.cargarCliente(cliente);
+
+        if (getDesktopPane() != null) {
+            getDesktopPane().add(frmCliente);
+        }
+        frmCliente.setVisible(true);
         try {
-            controladorcliente.eliminar(id, null);
-            cargarClientes();
-        } catch (ClienteConContratoExeption e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+            frmCliente.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
         }
-    }//GEN-LAST:event_btnEliminarActionPerformed
+
+        dispose();
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+        String textoId = flIdentificacion.getText().trim();
+        String nombre = flNombre.getText().trim();
+
+        Integer id = null;
+        if (!textoId.isEmpty()) {
+            try {
+                id = Integer.parseInt(textoId);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "La identificación debe ser numérica.");
+                return;
+            }
+        }
+        java.util.ArrayList<Cliente> resultado = controladorcliente.filtrar(id, nombre);
+        cargarClientes(resultado);
+    }//GEN-LAST:event_btnFiltrarActionPerformed
+
+    private void flIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_flIdentificacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_flIdentificacionActionPerformed
+
+    private void btnLimpiarFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarFiltroActionPerformed
+          flIdentificacion.setText("");
+        flNombre.setText("");
+        cargarClientes(controladorcliente.getClientes());
+    }//GEN-LAST:event_btnLimpiarFiltroActionPerformed
     
-    private void cargarClientes() {
-        javax.swing.table.DefaultTableModel modelo =
-                (javax.swing.table.DefaultTableModel) jTable1.getModel();
+    private void cargarClientes(java.util.ArrayList<Cliente> clientes) {
+    javax.swing.table.DefaultTableModel modelo =
+            (javax.swing.table.DefaultTableModel) jTable1.getModel();
 
-        modelo.setRowCount(0);
+    modelo.setRowCount(0);
 
-        for (Cliente cliente : controladorcliente.getClientes()) {
-            modelo.addRow(new Object[]{
-                cliente.getIdPersona(),
-                cliente.getNombre(),
-                cliente.getTelefono(),
-                cliente.getCorreoElectronico()
-            });
-        }
+    for (Cliente cliente : clientes) {
+        modelo.addRow(new Object[]{
+            cliente.getIdPersona(),
+            cliente.getNombre(),
+            cliente.getTelefono(),
+            cliente.calcularEdad(),
+            cliente.getCorreoElectronico()
+        });
     }
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton brnActualizar;
-    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnFiltrar;
+    private javax.swing.JButton btnLimpiarFiltro;
+    private javax.swing.JTextField flIdentificacion;
+    private javax.swing.JTextField flNombre;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

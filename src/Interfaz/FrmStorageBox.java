@@ -37,8 +37,7 @@ public class FrmStorageBox extends javax.swing.JFrame {
         initComponents();
         jMenuBar1.setLayout(new java.awt.GridLayout(1, jMenuBar1.getComponentCount()));
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
-        MenuServicio = new javax.swing.JMenu();
-        itmServicio = new javax.swing.JMenuItem();
+      
 
     }
 
@@ -86,9 +85,10 @@ public class FrmStorageBox extends javax.swing.JFrame {
         jMenuBar1.setMinimumSize(new java.awt.Dimension(70, 70));
         jMenuBar1.setPreferredSize(new java.awt.Dimension(70, 70));
 
-        MenuCliente.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 70, 8, 70));
-        MenuCliente.setForeground(new java.awt.Color(0, 0, 102));
-        MenuCliente.setText("Cliente");
+        MenuCliente.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 60, 8, 60));
+        MenuCliente.setForeground(new java.awt.Color(102, 0, 0));
+        MenuCliente.setText(" Cliente");
+        MenuCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         MenuCliente.setMargin(new java.awt.Insets(8, 20, 8, 20));
         MenuCliente.addActionListener(this::MenuClienteActionPerformed);
 
@@ -102,8 +102,11 @@ public class FrmStorageBox extends javax.swing.JFrame {
 
         jMenuBar1.add(MenuCliente);
 
-        MenuEspacio.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 70, 8, 70));
+        MenuEspacio.setBackground(new java.awt.Color(60, 63, 65));
+        MenuEspacio.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 60, 8, 60));
+        MenuEspacio.setForeground(new java.awt.Color(102, 0, 0));
         MenuEspacio.setText("Espacio");
+        MenuEspacio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         itmEspacio.setText("Espacio");
         itmEspacio.addActionListener(this::itmEspacioActionPerformed);
@@ -115,8 +118,10 @@ public class FrmStorageBox extends javax.swing.JFrame {
 
         jMenuBar1.add(MenuEspacio);
 
-        menuContrato.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 70, 8, 70));
+        menuContrato.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 60, 8, 60));
+        menuContrato.setForeground(new java.awt.Color(102, 0, 0));
         menuContrato.setText("Contrato");
+        menuContrato.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         itmContrato.setText("Contrato");
         itmContrato.addActionListener(this::itmContratoActionPerformed);
@@ -124,8 +129,10 @@ public class FrmStorageBox extends javax.swing.JFrame {
 
         jMenuBar1.add(menuContrato);
 
-        MenuServicio.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 70, 8, 70));
+        MenuServicio.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 60, 8, 60));
+        MenuServicio.setForeground(new java.awt.Color(153, 0, 0));
         MenuServicio.setText("Servicio");
+        MenuServicio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         itmServicio.setText("servicios");
         itmServicio.addActionListener(this::itmServicioActionPerformed);
@@ -137,8 +144,10 @@ public class FrmStorageBox extends javax.swing.JFrame {
 
         jMenuBar1.add(MenuServicio);
 
-        menuEmpleado.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 70, 8, 70));
+        menuEmpleado.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 60, 8, 60));
+        menuEmpleado.setForeground(new java.awt.Color(102, 0, 0));
         menuEmpleado.setText("Empleado");
+        menuEmpleado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         itmEmpleado.setText("empleados");
         itmEmpleado.addActionListener(this::itmEmpleadoActionPerformed);
@@ -150,7 +159,10 @@ public class FrmStorageBox extends javax.swing.JFrame {
 
         jMenuBar1.add(menuEmpleado);
 
+        menuInicio.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 60, 8, 60));
+        menuInicio.setForeground(new java.awt.Color(102, 0, 0));
         menuInicio.setText("Inicio");
+        menuInicio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         itmSalir.setText("Salir");
         itmSalir.addActionListener(this::itmSalirActionPerformed);

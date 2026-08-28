@@ -86,4 +86,20 @@ public class ListaClientes {
         }
         return false;
     }
+    
+    public ArrayList<Cliente> filtrar(Integer id, String nombre) {
+        ArrayList<Cliente> resultado = new ArrayList<>();
+        String nombreFiltro = (nombre == null) ? "" : nombre.trim().toLowerCase();
+
+        for (Cliente cliente : clientes) {
+            boolean cumpleId = (id == null) || cliente.getIdPersona() == id;
+            boolean cumpleNombre = nombreFiltro.isEmpty()
+                    || cliente.getNombre().toLowerCase().contains(nombreFiltro);
+
+            if (cumpleId && cumpleNombre) {
+                resultado.add(cliente);
+            }
+        }
+        return resultado;
+    }
 }

@@ -41,4 +41,8 @@ public class ControladorCliente {
     public boolean eliminar(int id, ArrayList<Contrato> contratos) throws ClienteConContratoExeption {
         return lista.eliminar(id, contratos);
     }
+    
+    public ArrayList<Cliente> filtrar(Integer id, String nombre) {
+        return lista.filtrar(id, nombre);
+    }
 }
