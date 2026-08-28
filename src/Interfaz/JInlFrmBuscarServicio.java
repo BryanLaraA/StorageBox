@@ -199,7 +199,7 @@ public class JInlFrmBuscarServicio extends javax.swing.JInternalFrame {
 
         if (opcion == JOptionPane.YES_OPTION) {
             int codigo = Integer.parseInt(
-            jTablaServicio.getValueAt(fila, 0).toString());
+                    jTablaServicio.getValueAt(fila, 0).toString());
             controladorservicio.eliminar(codigo);
             JOptionPane.showMessageDialog(this, "Servicio eliminado");
 
@@ -224,9 +224,9 @@ public class JInlFrmBuscarServicio extends javax.swing.JInternalFrame {
             return;
         }
 
-        String nuevaDescripcion = JOptionPane.showInputDialog(this,"Nueva descripción:",servicio.getDescripcion());
+        String nuevaDescripcion = JOptionPane.showInputDialog(this, "Nueva descripción:", servicio.getDescripcion());
 
-        String nuevoPrecioTexto = JOptionPane.showInputDialog(this,"Nuevo precio:",servicio.getPrecio());
+        String nuevoPrecioTexto = JOptionPane.showInputDialog(this, "Nuevo precio:", servicio.getPrecio());
         String descripcionFinal = null;
 
         if (nuevaDescripcion != null && !nuevaDescripcion.trim().isEmpty()) {
@@ -254,19 +254,13 @@ public class JInlFrmBuscarServicio extends javax.swing.JInternalFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         javax.swing.JTextField campoNombre = new javax.swing.JTextField();
-        javax.swing.JTextField campoPrecioMin = new javax.swing.JTextField();
-        javax.swing.JTextField campoPrecioMax = new javax.swing.JTextField();
 
-        javax.swing.JPanel panelFiltro = new javax.swing.JPanel(new java.awt.GridLayout(3, 2, 5, 5));
+        javax.swing.JPanel panelFiltro = new javax.swing.JPanel(new java.awt.GridLayout(1, 2, 5, 5));
         panelFiltro.add(new javax.swing.JLabel("Nombre contiene:"));
         panelFiltro.add(campoNombre);
-        panelFiltro.add(new javax.swing.JLabel("Precio mínimo:"));
-        panelFiltro.add(campoPrecioMin);
-        panelFiltro.add(new javax.swing.JLabel("Precio máximo:"));
-        panelFiltro.add(campoPrecioMax);
 
-        int opcion = JOptionPane.showConfirmDialog(this, panelFiltro,"Filtrar servicio",
-            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        int opcion = JOptionPane.showConfirmDialog(this, panelFiltro, "Filtrar servicio",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         if (opcion != JOptionPane.OK_OPTION) {
             return;
@@ -274,22 +268,7 @@ public class JInlFrmBuscarServicio extends javax.swing.JInternalFrame {
 
         String nombre = campoNombre.getText().trim();
 
-        Double precioMin = null;
-        Double precioMax = null;
-
-        try {
-            if (!campoPrecioMin.getText().trim().isEmpty()) {
-                precioMin = Double.valueOf(campoPrecioMin.getText().trim());
-            }
-            if (!campoPrecioMax.getText().trim().isEmpty()) {
-                precioMax = Double.valueOf(campoPrecioMax.getText().trim());
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El precio mínimo y máximo deben ser numéricos");
-            return;
-        }
-
-        java.util.ArrayList<Servicio> resultado = controladorservicio.filtrar(nombre, precioMin, precioMax);
+        java.util.ArrayList<Servicio> resultado = controladorservicio.filtrar(nombre, null, null);
 
         DefaultTableModel modelo = (DefaultTableModel) jTablaServicio.getModel();
 
