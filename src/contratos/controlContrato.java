@@ -57,7 +57,7 @@ public class controlContrato {
             ArrayList<Servicio> serviciosAdicionales) throws FechaInvalidaException {
  
         Contrato.validarFechas(fechaInicio, fechaFin);
-        if (fechasValidas(espacio, fechaInicio, fechaFin)) { // true = hay conflicto (nombre engañoso, ya lo vimos)
+        if (fechasValidas(espacio, fechaInicio, fechaFin)) { 
             throw new FechaInvalidaException("El espacio #" + espacio.getNumero() + " no está disponible en esas fechas.");
         }
         Contrato contrato = new Contrato(cliente, espacio, fechaInicio, fechaFin);
