@@ -89,11 +89,6 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu4">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jMenu4"/>
-          </Properties>
-        </Menu>
         <Menu class="javax.swing.JMenu" name="MenuServicio">
           <Properties>
             <Property name="text" type="java.lang.String" value="Servicio"/>

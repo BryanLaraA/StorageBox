@@ -60,7 +60,6 @@ public class FrmStorageBox extends javax.swing.JFrame {
         itmBuscarEspacio = new javax.swing.JMenuItem();
         menuContrato = new javax.swing.JMenu();
         itmContrato = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
         MenuServicio = new javax.swing.JMenu();
         itmServicio = new javax.swing.JMenuItem();
         itmBuscarServicio = new javax.swing.JMenuItem();
@@ -119,9 +118,6 @@ public class FrmStorageBox extends javax.swing.JFrame {
         menuContrato.add(itmContrato);
 
         jMenuBar1.add(menuContrato);
-
-        jMenu4.setText("jMenu4");
-        jMenuBar1.add(jMenu4);
 
         MenuServicio.setText("Servicio");
 
@@ -336,7 +332,6 @@ public class FrmStorageBox extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmEspacio;
     private javax.swing.JMenuItem itmServicio;
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu menuContrato;
     private javax.swing.JMenu menuEmpleado;
