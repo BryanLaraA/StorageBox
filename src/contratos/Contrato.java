@@ -52,7 +52,7 @@ public class Contrato {
             throw new FechaInvalidaException("El período del contrato debe ser de al menos un día.");
         }
     }
-    public static double[] calcularCostosPreview(Espacio espacio, LocalDate fechaInicio,
+    public static double[] calcularCostos(Espacio espacio, LocalDate fechaInicio,
             LocalDate fechaFin, ArrayList<Servicio> servicios) {
         long dias = ChronoUnit.DAYS.between(fechaInicio, fechaFin);
         int periodos = dias <= 0 ? 1 : (int) Math.ceil(dias / 30.0);
