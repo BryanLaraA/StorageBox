@@ -97,9 +97,11 @@
                               <Component id="jLabel6" alignment="1" min="-2" pref="215" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtIdentificacion" alignment="1" min="-2" pref="215" max="-2" attributes="0"/>
-                              <Component id="jLabel7" alignment="1" min="-2" pref="215" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="txtIdentificacion" alignment="1" pref="215" max="32767" attributes="0"/>
+                              <Component id="jLabel7" alignment="1" pref="215" max="32767" attributes="0"/>
+                              <Component id="jTextField1" alignment="1" max="32767" attributes="0"/>
+                              <Component id="jLabel1" alignment="1" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -114,17 +116,23 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel6" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                       <Component id="jLabel4" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                      <Component id="jLabel1" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="DateChooser" min="-2" pref="49" max="-2" attributes="0"/>
-                      <Component id="txtNombre" min="-2" pref="49" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jTextField1" pref="49" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="DateChooser" pref="49" max="32767" attributes="0"/>
+                          <Component id="txtNombre" pref="49" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace pref="18" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
+                  <EmptySpace pref="17" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel3" alignment="0" min="-2" pref="27" max="-2" attributes="0"/>
-                      <Component id="jLabel5" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                      <Component id="jLabel7" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel5" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                          <Component id="jLabel7" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -248,7 +256,23 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="37" green="1b" red="13" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Correo electronico"/>
+            <Property name="text" type="java.lang.String" value="Identificacion"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextField1">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="15" red="13" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Edad"/>
           </Properties>
         </Component>
       </SubComponents>
