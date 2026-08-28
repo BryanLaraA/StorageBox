@@ -35,6 +35,7 @@ public class FrmStorageBox extends javax.swing.JFrame {
      */
     public FrmStorageBox() {
         initComponents();
+        jMenuBar1.setLayout(new java.awt.GridLayout(1, jMenuBar1.getComponentCount()));
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         MenuServicio = new javax.swing.JMenu();
         itmServicio = new javax.swing.JMenuItem();
@@ -84,6 +85,7 @@ public class FrmStorageBox extends javax.swing.JFrame {
         jMenuBar1.setPreferredSize(new java.awt.Dimension(70, 70));
 
         MenuCliente.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 70, 8, 70));
+        MenuCliente.setForeground(new java.awt.Color(0, 0, 102));
         MenuCliente.setText("Cliente");
         MenuCliente.setMargin(new java.awt.Insets(8, 20, 8, 20));
         MenuCliente.addActionListener(this::MenuClienteActionPerformed);
@@ -111,6 +113,7 @@ public class FrmStorageBox extends javax.swing.JFrame {
 
         jMenuBar1.add(MenuEspacio);
 
+        menuContrato.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 70, 8, 70));
         menuContrato.setText("Contrato");
 
         itmContrato.setText("Contrato");
@@ -119,6 +122,7 @@ public class FrmStorageBox extends javax.swing.JFrame {
 
         jMenuBar1.add(menuContrato);
 
+        MenuServicio.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 70, 8, 70));
         MenuServicio.setText("Servicio");
 
         itmServicio.setText("servicios");

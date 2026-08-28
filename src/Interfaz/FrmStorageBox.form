@@ -19,6 +19,9 @@
                 <EmptyBorder bottom="8" left="70" right="70" top="8"/>
               </Border>
             </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="0" red="0" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Cliente"/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[8, 20, 8, 20]"/>
@@ -76,6 +79,11 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuContrato">
           <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                <EmptyBorder bottom="8" left="70" right="70" top="8"/>
+              </Border>
+            </Property>
             <Property name="text" type="java.lang.String" value="Contrato"/>
           </Properties>
           <SubComponents>
