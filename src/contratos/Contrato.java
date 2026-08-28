@@ -63,9 +63,9 @@ public class Contrato {
                 costoServicios += s.getPrecio();
             }
         }
-        double subtotal =  costoEspacio + costoServicios;
-        double impuestos = subtotal*IMPUESTO;
-        double totalConImpuesto = subtotal+impuestos;
+        double totalConImpuesto = costoEspacio + costoServicios;
+        double subtotal = totalConImpuesto / (1 + IMPUESTO);
+        double impuestos = totalConImpuesto - subtotal;
         return new double[]{subtotal, impuestos, totalConImpuesto};
     }
 
