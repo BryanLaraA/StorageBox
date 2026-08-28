@@ -27,7 +27,7 @@ public class Controladorservicio {
 
             servicios.add(servicio);
 
-            indiceServicios.put(servicio.getNombre().toLowerCase(),servicio);
+            indiceServicios.put(servicio.getNombre().toLowerCase(), servicio);
         }
     }
 
@@ -60,16 +60,13 @@ public class Controladorservicio {
     }
 
     public boolean eliminar(int codigo) {
-
         for (int i = 0; i < servicios.size(); i++) {
-
             if (servicios.get(i).getCodigo() == codigo) {
-
-                servicios.remove(i);
+                Servicio eliminado = servicios.remove(i);
+                indiceServicios.remove(eliminado.getNombre().toLowerCase());
                 return true;
             }
         }
-
         return false;
     }
 
