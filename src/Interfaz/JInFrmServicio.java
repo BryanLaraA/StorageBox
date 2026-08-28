@@ -207,31 +207,23 @@ public class JInFrmServicio extends javax.swing.JInternalFrame {
 
             JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios");
             return;
-        }
-
-        try {
-
+        } try {
             double precio = Double.parseDouble(txtPrecio.getText().trim());
 
             Servicio servicio = new Servicio();
 
-            int codigo = controladorservicio.getServicios().size() + 1;
-
-            servicio.setCodigo(codigo);
             servicio.setNombre(nombre);
             servicio.setDescripcion(descripcion);
             servicio.setPrecio(precio);
 
             controladorservicio.guardar(servicio);
 
-            JOptionPane.showMessageDialog(this, "Servicio guardado correctamente");
-
+            JOptionPane.showMessageDialog(this, "Servicio guardado, Codigo asignado: " + servicio.getCodigo());
             limpiarCampos();
 
         } catch (NumberFormatException e) {
 
-            JOptionPane.showMessageDialog(this, "El precio debe ser numérico");
-
+            JOptionPane.showMessageDialog(this, "El precio debe ser numerico");
         }
     }
 

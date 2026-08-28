@@ -24,11 +24,11 @@ public class JInlFrmEmpleados extends javax.swing.JInternalFrame {
     public JInlFrmEmpleados(Controladorempleado controladorem) {
         initComponents();
         this.controladorem = controladorem;
-        
+
         jLabel1.setOpaque(true);
         jLabel1.setBackground(new Color(0, 102, 204));
         jLabel1.setForeground(Color.WHITE);
-        
+
         setClosable(true);
         setMaximizable(true);
         setIconifiable(true);
@@ -45,28 +45,17 @@ public class JInlFrmEmpleados extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        txtPuesto = new javax.swing.JTextField();
-        txtSalario = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtIdentificacion = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         Guardar = new javax.swing.JButton();
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        txtPuesto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
-        txtSalario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel5.setText("Salario:");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Nombre:");
@@ -74,6 +63,7 @@ public class JInlFrmEmpleados extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Telefono:");
 
+        txtTelefono.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtTelefono.addActionListener(this::txtTelefonoActionPerformed);
 
         txtNombre.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -83,9 +73,6 @@ public class JInlFrmEmpleados extends javax.swing.JInternalFrame {
         jLabel2.setText("Identificacion:");
 
         txtIdentificacion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel6.setText("Puesto:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -104,18 +91,9 @@ public class JInlFrmEmpleados extends javax.swing.JInternalFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtPuesto))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -130,18 +108,10 @@ public class JInlFrmEmpleados extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -192,7 +162,7 @@ public class JInlFrmEmpleados extends javax.swing.JInternalFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -205,48 +175,58 @@ public class JInlFrmEmpleados extends javax.swing.JInternalFrame {
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
         String identificacion = txtIdentificacion.getText().trim();
         String nombre = txtNombre.getText().trim();
-        String puesto = txtPuesto.getText().trim();
-        String salarioTexto = txtSalario.getText().trim();
         String telefono = txtTelefono.getText().trim();
 
-        if (identificacion.isEmpty() || nombre.isEmpty() || puesto.isEmpty() || salarioTexto.isEmpty() || telefono.isEmpty()) {
+        if (identificacion.isEmpty() || nombre.isEmpty() || telefono.isEmpty()) {
 
-            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios");
+            JOptionPane.showMessageDialog(this, "Identificación, nombre y teléfono son obligatorios");
             return;
-        }
+            
+            }
 
-        try {
-            double salario = Double.parseDouble(salarioTexto);
+            javax.swing.JComboBox<Puesto> comboPuesto = new javax.swing.JComboBox<>(Puesto.values());
+            javax.swing.JLabel labelSalario = new javax.swing.JLabel("₡" + ((Puesto) comboPuesto.getSelectedItem()).getSalario());
 
-            Empleado empleado = new Empleado();
+            comboPuesto.addActionListener(e -> labelSalario.setText( "₡" + ((Puesto) comboPuesto.getSelectedItem()).getSalario()));
 
-            empleado.setIdPersona(Integer.parseInt(identificacion));
-            empleado.setNombre(nombre);
-            empleado.setTelefono(telefono);
+            javax.swing.JPanel panelPuesto = new javax.swing.JPanel(new java.awt.GridLayout(2, 2, 5, 5));
+            panelPuesto.add(new javax.swing.JLabel("Puesto:"));
+            panelPuesto.add(comboPuesto);
+            panelPuesto.add(new javax.swing.JLabel("Salario mensual:"));
+            panelPuesto.add(labelSalario);
 
-            Puesto puestoObj = new Puesto();
-            puestoObj.setNombre(puesto);
-            puestoObj.setSalario(salario);
+            int opcion = JOptionPane.showConfirmDialog(this, panelPuesto, "Seleccione el puesto",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
-            empleado.setPuesto(puestoObj);
-            empleado.setSalario(salario);
+            if (opcion != JOptionPane.OK_OPTION) {
+                return;
+            }
 
-            controladorem.guardar(empleado);
+            try {
+                Puesto puestoSeleccionado = (Puesto) comboPuesto.getSelectedItem();
 
-            JOptionPane.showMessageDialog(this, "Empleado guardado correctamente");
+                Empleado empleado = new Empleado();
 
-            limpiarCampos();
+                empleado.setIdPersona(Integer.parseInt(identificacion));
+                empleado.setNombre(nombre);
+                empleado.setTelefono(telefono);
+                empleado.setPuesto(puestoSeleccionado);
 
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El salario debe ser numérico");
-        }
+                controladorem.guardar(empleado);
+
+                JOptionPane.showMessageDialog(this,
+                        "Empleado guardado correctamente. Salario asignado: ₡" + puestoSeleccionado.getSalario());
+
+                limpiarCampos();
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "La identificación debe ser numérica");
+            }
     }//GEN-LAST:event_GuardarActionPerformed
 
-    private void limpiarCampos() {
+        private void limpiarCampos() {
         txtIdentificacion.setText("");
         txtNombre.setText("");
-        txtPuesto.setText("");
-        txtSalario.setText("");
         txtTelefono.setText("");
     }
 
@@ -261,14 +241,10 @@ public class JInlFrmEmpleados extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtIdentificacion;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtPuesto;
-    private javax.swing.JTextField txtSalario;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,6 +6,7 @@ package Interfaz;
 
 import administracionempleados.Controladorempleado;
 import administracionempleados.Empleado;
+import administracionempleados.Puesto;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -203,44 +204,57 @@ public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
             return;
         }
 
-        String nombre = jTablaEmpleado.getValueAt(fila, 1).toString();
+        String nombreActual = jTablaEmpleado.getValueAt(fila, 1).toString();
 
-        Empleado empleado = controladorem.buscar(nombre);
+        Empleado empleado = controladorem.buscar(nombreActual);
 
         if (empleado == null) {
             JOptionPane.showMessageDialog(this, "Empleado no encontrado");
             return;
         }
 
-        String nuevoPuesto = JOptionPane.showInputDialog(this,"Nuevo puesto:", empleado.getPuesto().getNombre());
+        javax.swing.JTextField campoNombre = new javax.swing.JTextField(empleado.getNombre());
+        javax.swing.JTextField campoTelefono = new javax.swing.JTextField(empleado.getTelefono());
+        javax.swing.JComboBox<Puesto> comboPuesto = new javax.swing.JComboBox<>(Puesto.values());
+        comboPuesto.setSelectedItem(empleado.getPuesto());
 
-        String salarioTexto = JOptionPane.showInputDialog(this,"Nuevo salario:", empleado.getSalario());
+        javax.swing.JLabel labelSalario = new javax.swing.JLabel("₡" + ((Puesto) comboPuesto.getSelectedItem()).getSalario());
 
-        String puestoFinal = null;
+        comboPuesto.addActionListener(e -> labelSalario.setText("₡" + ((Puesto) comboPuesto.getSelectedItem()).getSalario()));
 
-        if (nuevoPuesto != null && !nuevoPuesto.trim().isEmpty()) {
-            puestoFinal = nuevoPuesto;
+        javax.swing.JPanel panel = new javax.swing.JPanel(new java.awt.GridLayout(4, 2, 5, 5));
+        panel.add(new javax.swing.JLabel("Nombre:"));
+        panel.add(campoNombre);
+        panel.add(new javax.swing.JLabel("Telefono:"));
+        panel.add(campoTelefono);
+        panel.add(new javax.swing.JLabel("Puesto:"));
+        panel.add(comboPuesto);
+        panel.add(new javax.swing.JLabel("Salario mensual:"));
+        panel.add(labelSalario);
+
+        int opcion = JOptionPane.showConfirmDialog(this, panel, "Actualizar empleado",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (opcion != JOptionPane.OK_OPTION) {
+            return;
         }
 
-        Double salarioFinal = null;
+        String nuevoNombre = campoNombre.getText().trim();
+        String nuevoTelefono = campoTelefono.getText().trim();
 
-        if (salarioTexto != null && !salarioTexto.trim().isEmpty()) {
-            try {
-                salarioFinal = Double.valueOf(salarioTexto);
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Salario inválido");
-                return;
-            }
+        if (nuevoNombre.isEmpty() || nuevoTelefono.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nombre y telefono son obligatorios");
+            return;
         }
 
-        if (controladorem.editar(nombre, puestoFinal, salarioFinal)) {
+        Puesto nuevoPuesto = (Puesto) comboPuesto.getSelectedItem();
+
+        if (controladorem.editar(nombreActual, nuevoNombre, nuevoTelefono, nuevoPuesto)) {
             JOptionPane.showMessageDialog(this, "Empleado actualizado");
             cargarEmpleados();
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo actualizar");
         }
-
-
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -274,9 +288,7 @@ public class JInFrmBuscarEmpleado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void cargarEmpleados() {
-
-        DefaultTableModel modelo
-                = (DefaultTableModel) jTablaEmpleado.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) jTablaEmpleado.getModel();
 
         modelo.setRowCount(0);
 

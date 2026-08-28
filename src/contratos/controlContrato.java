@@ -12,10 +12,10 @@ import servicios.Servicio;
  
 public class controlContrato {
  
-    private ArrayList<Contrato> contratos;
+    private LinkedList<Contrato> contratos;
  
     public controlContrato() {
-        contratos = new ArrayList<>();
+        contratos = new LinkedList<>();
     }
     
     public ArrayList<Espacio> buscarDisponiblesTipo(LinkedList<Espacio> espacios,
@@ -62,7 +62,7 @@ public class controlContrato {
  
         if (serviciosAdicionales != null) {
             for (Servicio s : serviciosAdicionales) {
-                contrato.agregarServicio(s);
+                contrato.addServicio(s);
             }
         }
  
@@ -96,7 +96,7 @@ public class controlContrato {
         return null;
     }
  
-    public ArrayList<Contrato> getContratos() {
+    public LinkedList<Contrato> getContratos() {
         return contratos;
     }
     

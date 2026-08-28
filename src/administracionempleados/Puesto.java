@@ -8,44 +8,32 @@ package administracionempleados;
  *
  * @author lenno
  */
-public class Puesto {
+public enum Puesto {
 
-    private int idPuesto;
-    private String nombre;
-    private String descripcion;
-    private double salario;
+    ADMINISTRADOR("Administrador", 950000),
+    RECEPCIONISTA("Recepcionista", 700000),
+    ENCARGADO_BODEGA("Encargado de bodega", 650000),
+    MANTENIMIENTO("Mantenimiento", 600000),
+    OPERARIO_CARGA("Operario de carga", 575000);
 
-    public int getIdPuesto() {
-        return idPuesto;
+    private final String nombre;
+    private final double salario;
+
+    Puesto(String nombre, double salario) {
+        this.nombre = nombre;
+        this.salario = salario;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
     public double getSalario() {
         return salario;
     }
 
-    public void setIdPuesto(int idPuesto) {
-        this.idPuesto = idPuesto;
+    @Override
+    public String toString() {
+        return nombre;
     }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public void setSalario(double salario) {
-        this.salario = salario;
-    }
-    
-    
 }
