@@ -35,7 +35,7 @@ public abstract class Persona {
     }
 
     public String getTelefono() {
-        return Puesto;
+        return telefono;
     }
 
     public void setNombre(String nombre) {
@@ -43,13 +43,12 @@ public abstract class Persona {
     } 
 
     public void setTelefono(String telefono) {
-        this.Puesto = telefono;
+        this.telefono = telefono;
     }
 
     @Override
     public String toString() {
-        return "Persona{" + "ID=" + ID + ", nombreCompleto=" + nombreCompleto + ", telefono=" + Puesto + '}';
+        return "Persona{" + "ID=" + ID + ", nombreCompleto=" + nombreCompleto + ", Puesto=" + Puesto + ", telefono=" + telefono + '}';
     }
-    
     
 }
