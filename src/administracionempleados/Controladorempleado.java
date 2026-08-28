@@ -31,21 +31,23 @@ public class Controladorempleado {
         return null;
     }
 
-    public boolean editar(String nombre, String puesto, Double nuevoSalario) {
+    public boolean editar(String nombreActual, String nuevoNombre, String nuevoTelefono, Puesto nuevoPuesto) {
 
-        Empleado empleado = buscar(nombre);
-
+        Empleado empleado = buscar(nombreActual);
         if (empleado == null) {
             return false;
         }
 
-        if (puesto != null && !puesto.trim().isEmpty()) {
-            empleado.getPuesto().setNombre(puesto);
+        if (nuevoNombre != null && !nuevoNombre.trim().isEmpty()) {
+            empleado.setNombre(nuevoNombre.trim());
         }
 
-        if (nuevoSalario != null) {
-            empleado.setSalario(nuevoSalario);
-            empleado.getPuesto().setSalario(nuevoSalario);
+        if (nuevoTelefono != null && !nuevoTelefono.trim().isEmpty()) {
+            empleado.setTelefono(nuevoTelefono.trim());
+        }
+
+        if (nuevoPuesto != null) {
+            empleado.setPuesto(nuevoPuesto);
         }
 
         return true;
