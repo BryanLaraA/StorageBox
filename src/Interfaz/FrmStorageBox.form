@@ -16,7 +16,7 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                <EmptyBorder bottom="8" left="50" right="50" top="8"/>
+                <EmptyBorder bottom="8" left="70" right="70" top="8"/>
               </Border>
             </Property>
             <Property name="text" type="java.lang.String" value="Cliente"/>
@@ -50,7 +50,7 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                <EmptyBorder bottom="8" left="50" right="50" top="8"/>
+                <EmptyBorder bottom="8" left="70" right="70" top="8"/>
               </Border>
             </Property>
             <Property name="text" type="java.lang.String" value="Espacio"/>
@@ -74,18 +74,23 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu3">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jMenu3"/>
-          </Properties>
-        </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jMenu4"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                <EmptyBorder bottom="8" left="70" right="70" top="8"/>
+              </Border>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Contrato"/>
           </Properties>
         </Menu>
         <Menu class="javax.swing.JMenu" name="MenuServicio">
           <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                <EmptyBorder bottom="8" left="70" right="70" top="8"/>
+              </Border>
+            </Property>
             <Property name="text" type="java.lang.String" value="Servicio"/>
           </Properties>
           <SubComponents>
@@ -109,6 +114,11 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuEmpleado">
           <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                <EmptyBorder bottom="8" left="70" right="70" top="8"/>
+              </Border>
+            </Property>
             <Property name="text" type="java.lang.String" value="Empleado"/>
           </Properties>
           <SubComponents>

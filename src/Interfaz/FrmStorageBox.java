@@ -54,7 +54,6 @@ public class FrmStorageBox extends javax.swing.JFrame {
         MenuEspacio = new javax.swing.JMenu();
         itmEspacio = new javax.swing.JMenuItem();
         itmBuscarEspacio = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         MenuServicio = new javax.swing.JMenu();
         itmServicio = new javax.swing.JMenuItem();
@@ -79,7 +78,7 @@ public class FrmStorageBox extends javax.swing.JFrame {
         jMenuBar1.setMinimumSize(new java.awt.Dimension(70, 70));
         jMenuBar1.setPreferredSize(new java.awt.Dimension(70, 70));
 
-        MenuCliente.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 50, 8, 50));
+        MenuCliente.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 70, 8, 70));
         MenuCliente.setText("Cliente");
         MenuCliente.setMargin(new java.awt.Insets(8, 20, 8, 20));
         MenuCliente.addActionListener(this::MenuClienteActionPerformed);
@@ -94,7 +93,7 @@ public class FrmStorageBox extends javax.swing.JFrame {
 
         jMenuBar1.add(MenuCliente);
 
-        MenuEspacio.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 50, 8, 50));
+        MenuEspacio.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 70, 8, 70));
         MenuEspacio.setText("Espacio");
 
         itmEspacio.setText("Espacio");
@@ -107,12 +106,11 @@ public class FrmStorageBox extends javax.swing.JFrame {
 
         jMenuBar1.add(MenuEspacio);
 
-        jMenu3.setText("jMenu3");
-        jMenuBar1.add(jMenu3);
-
-        jMenu4.setText("jMenu4");
+        jMenu4.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 70, 8, 70));
+        jMenu4.setText("Contrato");
         jMenuBar1.add(jMenu4);
 
+        MenuServicio.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 70, 8, 70));
         MenuServicio.setText("Servicio");
 
         itmServicio.setText("servicios");
@@ -125,6 +123,7 @@ public class FrmStorageBox extends javax.swing.JFrame {
 
         jMenuBar1.add(MenuServicio);
 
+        menuEmpleado.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 70, 8, 70));
         menuEmpleado.setText("Empleado");
 
         itmEmpleado.setText("empleados");
@@ -185,8 +184,6 @@ public class FrmStorageBox extends javax.swing.JFrame {
             ventanaEspacio.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
-
-
     }//GEN-LAST:event_itmEspacioActionPerformed
 
     private void itmBuscarEspacioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmBuscarEspacioActionPerformed
@@ -197,7 +194,6 @@ public class FrmStorageBox extends javax.swing.JFrame {
             }
             return;
         }
-
         frmBuscarEspacio = new FrmFiltradoBuscar(administradorEspacios);
         jDesktopPane1.add(frmBuscarEspacio);
         frmBuscarEspacio.setVisible(true);
@@ -205,12 +201,10 @@ public class FrmStorageBox extends javax.swing.JFrame {
             frmBuscarEspacio.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
-
     }//GEN-LAST:event_itmBuscarEspacioActionPerformed
 
     private void itmServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmServicioActionPerformed
         JInFrmServicio frm = new JInFrmServicio(controladorservicio);
-
         jDesktopPane1.add(frm);
         frm.setVisible(true);
     }//GEN-LAST:event_itmServicioActionPerformed
@@ -223,14 +217,10 @@ public class FrmStorageBox extends javax.swing.JFrame {
             }
             return;
         }
-
         frmBuscarServicio
                 = new JInlFrmBuscarServicio(controladorservicio);
-
         jDesktopPane1.add(frmBuscarServicio);
-
         frmBuscarServicio.setVisible(true);
-
         try {
             frmBuscarServicio.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
@@ -239,11 +229,8 @@ public class FrmStorageBox extends javax.swing.JFrame {
 
     private void itmEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmEmpleadoActionPerformed
         JInlFrmEmpleados frm = new JInlFrmEmpleados(controladorem);
-
         jDesktopPane1.add(frm);
-
         frm.setVisible(true);
-
         try {
             frm.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
@@ -252,27 +239,20 @@ public class FrmStorageBox extends javax.swing.JFrame {
     private void itmBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmBuscarEmpleadoActionPerformed
         if (frmBuscarEmpleado != null
                 && !frmBuscarEmpleado.isClosed()) {
-
             try {
                 frmBuscarEmpleado.setSelected(true);
             } catch (java.beans.PropertyVetoException e) {
             }
-
             return;
         }
-
         frmBuscarEmpleado
                 = new JInFrmBuscarEmpleado(controladorem);
-
         jDesktopPane1.add(frmBuscarEmpleado);
-
         frmBuscarEmpleado.setVisible(true);
-
         try {
             frmBuscarEmpleado.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
-
     }//GEN-LAST:event_itmBuscarEmpleadoActionPerformed
 
     /**
@@ -313,7 +293,6 @@ public class FrmStorageBox extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmEspacio;
     private javax.swing.JMenuItem itmServicio;
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu menuEmpleado;
