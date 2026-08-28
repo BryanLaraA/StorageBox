@@ -63,9 +63,9 @@ public class Contrato {
                 costoServicios += s.getPrecio();
             }
         }
-        double totalConImpuesto = costoEspacio + costoServicios;
-        double subtotal = totalConImpuesto / (1 + IMPUESTO);
-        double impuestos = totalConImpuesto - subtotal;
+        double subtotal =  costoEspacio + costoServicios;
+        double impuestos = subtotal*IMPUESTO;
+        double totalConImpuesto = subtotal+impuestos;
         return new double[]{subtotal, impuestos, totalConImpuesto};
     }
 
@@ -97,7 +97,7 @@ public class Contrato {
         this.total = totalConImpuesto;
     }
 
-    public boolean agregarServicio(Servicio servicio) {
+    public boolean addServicio(Servicio servicio) {
         if (servicio != null && !serviciosAdicionales.contains(servicio)) {
             serviciosAdicionales.add(servicio);
             return true;
@@ -105,7 +105,7 @@ public class Contrato {
         return false;
     }
 
-    public void quitarServicio(Servicio servicio) {
+    public void removeServicio(Servicio servicio) {
         serviciosAdicionales.remove(servicio);
     }
 
