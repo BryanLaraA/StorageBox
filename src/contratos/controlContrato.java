@@ -62,7 +62,7 @@ public class controlContrato {
  
         if (serviciosAdicionales != null) {
             for (Servicio s : serviciosAdicionales) {
-                contrato.agregarServicio(s);
+                contrato.addServicio(s);
             }
         }
  

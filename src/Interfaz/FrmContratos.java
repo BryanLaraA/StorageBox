@@ -86,7 +86,7 @@ public class FrmContratos extends javax.swing.JInternalFrame {
             checkboxesServicios[i].addItemListener(e -> recalcularCostos());
         }
     }
-    private ArrayList<Servicio> obtenerServiciosSeleccionados() {
+    private ArrayList<Servicio> getServiciosSeleccionados() {
         ArrayList<Servicio> seleccionados = new ArrayList<>();
         for (JCheckBox cb : checkboxesServicios) {
             Servicio s = (Servicio) cb.getClientProperty("servicio");
@@ -97,14 +97,14 @@ public class FrmContratos extends javax.swing.JInternalFrame {
         return seleccionados;
     }
     private void updateEspacioDisponible() {
-        TipoEspacio tipo = obtenerTipoSeleccionado();
+        TipoEspacio tipo = getTipoSeleccionado();
         Date fi = txtFechaInicio.getDate();
         Date ff = txtFechaFin.getDate();
         if (tipo == null || fi == null || ff == null) {
         return;
         }
-        LocalDate fechaInicio = convertirALocalDate(fi);
-        LocalDate fechaFin = convertirALocalDate(ff);
+        LocalDate fechaInicio = toLocalDate(fi);
+        LocalDate fechaFin = toLocalDate(ff);
         ArrayList<Espacio> disponibles = controlContrato.buscarDisponiblesTipo(
                 controlEspacio.getEspacios(), tipo, fechaInicio, fechaFin);
         if (disponibles.isEmpty()) {
@@ -116,7 +116,7 @@ public class FrmContratos extends javax.swing.JInternalFrame {
         }
         recalcularCostos();
     }
-    private TipoEspacio obtenerTipoSeleccionado() {
+    private TipoEspacio getTipoSeleccionado() {
         if (comboxEspacio.getSelectedItem() == null) return null;
         String seleccion = comboxEspacio.getSelectedItem().toString().trim();
         switch (seleccion) {
@@ -126,7 +126,7 @@ public class FrmContratos extends javax.swing.JInternalFrame {
             default: return null;
         }
     }
-    private LocalDate convertirALocalDate(java.util.Date fecha) {
+    private LocalDate toLocalDate(java.util.Date fecha) {
         return fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
     }
     private void recalcularCostos() {
@@ -137,10 +137,10 @@ public class FrmContratos extends javax.swing.JInternalFrame {
         return;
     }
 
-    double[] costos = Contrato.calcularCostosPreview(espacioSeleccionado,
-            convertirALocalDate(txtFechaInicio.getDate()),
-            convertirALocalDate(txtFechaFin.getDate()),
-            obtenerServiciosSeleccionados());
+    double[] costos = Contrato.calcularCostos(espacioSeleccionado,
+            toLocalDate(txtFechaInicio.getDate()),
+            toLocalDate(txtFechaFin.getDate()),
+            getServiciosSeleccionados());
 
     lblSubtotal.setText(String.format("%,.2f", costos[0]));
     lblImpuestos.setText(String.format("%,.2f", costos[1]));
@@ -586,9 +586,9 @@ public class FrmContratos extends javax.swing.JInternalFrame {
 
         try {
             Contrato nuevo = controlContrato.crearContrato(clienteSeleccionado, espacioSeleccionado,
-                    convertirALocalDate(txtFechaInicio.getDate()),
-                    convertirALocalDate(txtFechaFin.getDate()),
-                    obtenerServiciosSeleccionados());
+                    toLocalDate(txtFechaInicio.getDate()),
+                    toLocalDate(txtFechaFin.getDate()),
+                    getServiciosSeleccionados());
 
             JOptionPane.showMessageDialog(this, "Contrato #" + nuevo.getNumeroContrato() + " creado.");
             contratoCargado = nuevo; 

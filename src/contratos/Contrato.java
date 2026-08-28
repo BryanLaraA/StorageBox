@@ -52,7 +52,7 @@ public class Contrato {
             throw new FechaInvalidaException("El período del contrato debe ser de al menos un día.");
         }
     }
-    public static double[] calcularCostosPreview(Espacio espacio, LocalDate fechaInicio,
+    public static double[] calcularCostos(Espacio espacio, LocalDate fechaInicio,
             LocalDate fechaFin, ArrayList<Servicio> servicios) {
         long dias = ChronoUnit.DAYS.between(fechaInicio, fechaFin);
         int periodos = dias <= 0 ? 1 : (int) Math.ceil(dias / 30.0);
@@ -63,9 +63,9 @@ public class Contrato {
                 costoServicios += s.getPrecio();
             }
         }
-        double totalConImpuesto = costoEspacio + costoServicios;
-        double subtotal = totalConImpuesto / (1 + IMPUESTO);
-        double impuestos = totalConImpuesto - subtotal;
+        double subtotal = costoEspacio + costoServicios;
+        double impuestos = subtotal * IMPUESTO;
+        double totalConImpuesto = impuestos + subtotal;
         return new double[]{subtotal, impuestos, totalConImpuesto};
     }
 
@@ -81,23 +81,7 @@ public class Contrato {
         return (int) Math.ceil(dias / 30.0);
     }
 
-    private double calcularCostoConImpuesto() {
-        double costoEspacio = espacio.getPrecioMensual() * calcularPeriodos();
-        double costoServicios = 0;
-        for (Servicio s : serviciosAdicionales) {
-            costoServicios += s.getPrecio();
-        }
-        return costoEspacio + costoServicios;
-    }
-
-    public void calcularCostos() {
-        double totalConImpuesto = calcularCostoConImpuesto();
-        this.subTotal = totalConImpuesto / (1 + IMPUESTO);
-        this.impuestos = totalConImpuesto - this.subTotal;
-        this.total = totalConImpuesto;
-    }
-
-    public boolean agregarServicio(Servicio servicio) {
+    public boolean addServicio(Servicio servicio) {
         if (servicio != null && !serviciosAdicionales.contains(servicio)) {
             serviciosAdicionales.add(servicio);
             return true;
@@ -105,7 +89,7 @@ public class Contrato {
         return false;
     }
 
-    public void quitarServicio(Servicio servicio) {
+    public void removeServicio(Servicio servicio) {
         serviciosAdicionales.remove(servicio);
     }
 
