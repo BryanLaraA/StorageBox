@@ -5,6 +5,7 @@
 package servicios;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -13,14 +14,20 @@ import java.util.ArrayList;
 public class Controladorservicio {
 
     private ArrayList<Servicio> servicios;
+    private HashMap<String, Servicio> indiceServicios;
 
     public Controladorservicio() {
         servicios = new ArrayList<>();
+        indiceServicios = new HashMap<>();
     }
 
     public void guardar(Servicio servicio) {
+
         if (servicio != null) {
+
             servicios.add(servicio);
+
+            indiceServicios.put(servicio.getNombre().toLowerCase(), servicio);
         }
     }
 
@@ -30,45 +37,37 @@ public class Controladorservicio {
             return null;
         }
 
-        for (Servicio servicio : servicios) {
-
-            if (servicio.getNombre().equalsIgnoreCase(nombre.trim())) {
-                return servicio;
-            }
-        }
-
-        return null;
+        return indiceServicios.get(nombre.trim().toLowerCase());
     }
 
-    public boolean actualizar(Servicio servicioActualizado) {
+    public boolean actualizar(String nombre, String descripcion, Double precio) {
 
-        if (servicioActualizado == null) {
+        Servicio servicio = buscar(nombre);
+
+        if (servicio == null) {
             return false;
         }
 
-        for (int i = 0; i < servicios.size(); i++) {
-
-            if (servicios.get(i).getNombre().equalsIgnoreCase(servicioActualizado.getNombre())) {
-                servicios.set(i, servicioActualizado);
-                return true;
-            }
+        if (descripcion != null && !descripcion.trim().isEmpty()) {
+            servicio.setDescripcion(descripcion);
         }
 
-        return false;
+        if (precio != null) {
+            servicio.setPrecio(precio);
+        }
+
+        return true;
     }
 
     public boolean eliminar(int codigo) {
-
-    for (int i = 0; i < servicios.size(); i++) {
-
-        if (servicios.get(i).getCodigo() == codigo) {
-
-            servicios.remove(i);
-            return true;
+        for (int i = 0; i < servicios.size(); i++) {
+            if (servicios.get(i).getCodigo() == codigo) {
+                Servicio eliminado = servicios.remove(i);
+                indiceServicios.remove(eliminado.getNombre().toLowerCase());
+                return true;
+            }
         }
-    }
-
-    return false;
+        return false;
     }
 
     public ArrayList<Servicio> getServicios() {

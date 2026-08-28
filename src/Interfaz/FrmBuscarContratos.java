@@ -16,13 +16,20 @@ import javax.swing.table.DefaultTableModel;
 public class FrmBuscarContratos extends javax.swing.JInternalFrame {
 
     private controlContrato controlContrato;
+    private FrmContratos padre;
 
     /**
      * Creates new form FrmBuscarContratos
      */
-    public FrmBuscarContratos() {
+    public FrmBuscarContratos(controlContrato controlContrato, FrmContratos padre) {
         initComponents();
         this.controlContrato = controlContrato;
+        this.controlContrato = controlContrato;
+        this.padre = padre;
+        setClosable(true);
+        setMaximizable(true);
+        setIconifiable(true);
+        setResizable(true);
     }
 
     /**
@@ -48,7 +55,7 @@ public class FrmBuscarContratos extends javax.swing.JInternalFrame {
         txtFecha = new javax.swing.JFormattedTextField();
         btnBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblContratos = new javax.swing.JTable();
         btnAceptar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
@@ -93,7 +100,7 @@ public class FrmBuscarContratos extends javax.swing.JInternalFrame {
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(this::btnBuscarActionPerformed);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblContratos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -104,7 +111,7 @@ public class FrmBuscarContratos extends javax.swing.JInternalFrame {
                 "Nº", "Cliente", "Espacio", "Inicio", "Fin", "Estado", "Total"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblContratos);
 
         btnAceptar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAceptar.setText("Aceptar");
@@ -164,12 +171,13 @@ public class FrmBuscarContratos extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6)
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEspacio, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtFecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtEspacio, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(35, 35, 35)
                 .addComponent(btnBuscar)
                 .addGap(18, 18, 18)
@@ -185,28 +193,24 @@ public class FrmBuscarContratos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-
+        DefaultTableModel modelo = (DefaultTableModel) tblContratos.getModel();
         modelo.setRowCount(0);
-
         for (Contrato contrato : controlContrato.getContratos()) {
-
             boolean coincide = true;
-
             if (!txtNumero.getText().trim().isEmpty()) {
                 coincide &= String.valueOf(contrato.getNumeroContrato()).contains(txtNumero.getText().trim());
             }
-
             if (!txtCliente.getText().trim().isEmpty()) {
                 coincide &= contrato.getCliente().getNombre().toLowerCase().contains(txtCliente.getText().trim().toLowerCase());
             }
-
+            if (!txtEspacio.getText().trim().isEmpty()) {
+                coincide &= String.valueOf(contrato.getEspacio().getNumero()).contains(txtEspacio.getText().trim());
+            }
             if (!txtEstado.getText().trim().isEmpty()) {
                 coincide &= contrato.getEstado().toString().toLowerCase().contains(txtEstado.getText().trim().toLowerCase());
             }
-
             if (coincide) {
-
+ 
                 modelo.addRow(new Object[]{
                     contrato.getNumeroContrato(),
                     contrato.getCliente().getNombre(),
@@ -221,14 +225,21 @@ public class FrmBuscarContratos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        int fila = jTable1.getSelectedRow();
-
+        int fila = tblContratos.getSelectedRow();
+ 
         if (fila == -1) {
             JOptionPane.showMessageDialog(this, "Seleccione un contrato.");
             return;
         }
-
-        int numeroContrato = Integer.parseInt(jTable1.getValueAt(fila, 0).toString());
+        int numeroContrato = Integer.parseInt(tblContratos.getValueAt(fila, 0).toString());
+        Contrato contrato = controlContrato.buscarPorNumero(numeroContrato);
+ 
+        if (contrato == null) {
+            JOptionPane.showMessageDialog(this, "No se encontró el contrato.");
+            return;
+        }
+        padre.cargarContrato(contrato);
+        dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -248,7 +259,7 @@ public class FrmBuscarContratos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblContratos;
     private javax.swing.JTextField txtCliente;
     private javax.swing.JTextField txtEspacio;
     private javax.swing.JTextField txtEstado;

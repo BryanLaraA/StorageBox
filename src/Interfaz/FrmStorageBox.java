@@ -10,6 +10,9 @@ import Interfaz.JInFrmServicio;
 import administracionempleados.Controladorempleado;
 import servicios.Controladorservicio;
 import Interfaz.JInFrmBuscarEmpleado;
+import contratos.controlContrato;
+import java.beans.PropertyVetoException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,6 +28,7 @@ public class FrmStorageBox extends javax.swing.JFrame {
     private JInlFrmBuscarServicio frmBuscarServicio;
     private Controladorempleado controladorem = new Controladorempleado();
     private JInFrmBuscarEmpleado frmBuscarEmpleado;
+    private controlContrato controlContrato = new controlContrato();
 
     /**
      * Creates new form FrmStorageBox
@@ -54,7 +58,8 @@ public class FrmStorageBox extends javax.swing.JFrame {
         MenuEspacio = new javax.swing.JMenu();
         itmEspacio = new javax.swing.JMenuItem();
         itmBuscarEspacio = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        menuContrato = new javax.swing.JMenu();
+        itmContrato = new javax.swing.JMenuItem();
         MenuServicio = new javax.swing.JMenu();
         itmServicio = new javax.swing.JMenuItem();
         itmBuscarServicio = new javax.swing.JMenuItem();
@@ -106,11 +111,14 @@ public class FrmStorageBox extends javax.swing.JFrame {
 
         jMenuBar1.add(MenuEspacio);
 
-        jMenu4.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 70, 8, 70));
-        jMenu4.setText("Contrato");
-        jMenuBar1.add(jMenu4);
+        menuContrato.setText("Contrato");
 
-        MenuServicio.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 70, 8, 70));
+        itmContrato.setText("Contrato");
+        itmContrato.addActionListener(this::itmContratoActionPerformed);
+        menuContrato.add(itmContrato);
+
+        jMenuBar1.add(menuContrato);
+
         MenuServicio.setText("Servicio");
 
         itmServicio.setText("servicios");
@@ -164,6 +172,7 @@ public class FrmStorageBox extends javax.swing.JFrame {
             ventanaCliente.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
+        
     }//GEN-LAST:event_itmClienteActionPerformed
 
     private void itmBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmBuscarClienteActionPerformed
@@ -255,6 +264,17 @@ public class FrmStorageBox extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_itmBuscarEmpleadoActionPerformed
 
+    private void itmContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmContratoActionPerformed
+        FrmContratos frm = new FrmContratos(controlContrato, controladorCliente, administradorEspacios, controladorservicio);
+        jDesktopPane1.add(frm);
+        frm.setVisible(true);
+        try {
+            frm.setSelected(true);
+        } catch (PropertyVetoException e) {
+            JOptionPane.showMessageDialog(this, "No se pudo seleccionar el contrato.");
+        }
+    }//GEN-LAST:event_itmContratoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -289,12 +309,13 @@ public class FrmStorageBox extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmBuscarEspacio;
     private javax.swing.JMenuItem itmBuscarServicio;
     private javax.swing.JMenuItem itmCliente;
+    private javax.swing.JMenuItem itmContrato;
     private javax.swing.JMenuItem itmEmpleado;
     private javax.swing.JMenuItem itmEspacio;
     private javax.swing.JMenuItem itmServicio;
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu menuContrato;
     private javax.swing.JMenu menuEmpleado;
     // End of variables declaration//GEN-END:variables
 }
